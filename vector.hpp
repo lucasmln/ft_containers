@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 10:42:18 by lucas             #+#    #+#             */
-/*   Updated: 2021/01/29 13:23:07 by lucas            ###   ########.fr       */
+/*   Updated: 2021/01/30 13:20:17 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@
 
 namespace ft
 {
-	template <typename T, typename R, typename P>
+	template <typename T>
 	class Iterator
 	{
 		public:
 			typedef std::random_access_iterator_tag		iterator_category;
 			typedef	T									value_type;
-			typedef	R									reference;
-			typedef const R								const_reference;
-			typedef T									pointer;
+			typedef	T									&reference;
+			typedef const T								&const_reference;
+			typedef T									*pointer;
 			typedef	ptrdiff_t							difference_type;
 			typedef size_t								size_type;
 
@@ -46,14 +46,14 @@ namespace ft
 
 			Iterator(pointer other): _ptr(other) {}
 
-			Iterator(Iterator &other)
+			Iterator(Iterator *other)
 			{
 				this->_ptr = other->_ptr;
 			}
 
 			~Iterator() {}
 
-			Iterator	&operator=(self const &it)
+			reference		operator=(self const &it)
 			{
 				_ptr = it._ptr;
 				return (*this);
@@ -349,8 +349,8 @@ namespace ft
 			typedef const T												*const_pointer;
 			ptrdiff_t													difference_type;
 			typedef size_t												size_type;
-			typedef Iterator <value_type, reference, pointer>			iterator;
-			typedef const Iterator <value_type, reference, pointer>		const_iterator;
+			typedef Iterator <value_type>								iterator;
+			typedef const Iterator <value_type>							const_iterator;
 		//	typedef ReverseIterator <value_type, reference, pointer>	reverse_iterator;
 		//	typedef const ReverseIterator <value_type, reference, pointer>	const_reverse_iterator;
 
@@ -382,7 +382,7 @@ namespace ft
 			template <class InputIt>
 				Vector (InputIt first, InputIt last,
 				const allocator_type& alloc = allocator_type(),
-				typename enable_if<is_iterator<typename InputIt::iterator_category>::value, InputIt>::type * = nullptr):
+				typename InputIt::difference_type * = nullptr):
 				_alloc(alloc), _array(NULL), _size(0), _size_alloc(0)
 				{
 					while (first != last)

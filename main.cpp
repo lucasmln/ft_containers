@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 12:54:41 by lucas             #+#    #+#             */
-/*   Updated: 2021/01/29 13:20:27 by lucas            ###   ########.fr       */
+/*   Updated: 2021/01/30 13:25:44 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,31 @@ int main(int argc, const char *argv[])
 	(void) argv;
 
 	ft::Vector<int>		v1(12, 15);
-	ft::Vector<int>::iterator	begin = v1.begin();
+	ft::Vector<int>::iterator	begin = v1.begin() + 3;
 	ft::Vector<int>::iterator	end = v1.end();
 	ft::Vector<int>	v2(begin, end);
 
-	for(size_t i = 0; i < v2.size(); i++)
-		std::cout << "v2[" << i << "] = " << v2[i] << std::endl;
+	std::cout << "\t\tV2 :" << std::endl << std::endl;
 
-	while (begin != end)
-		std::cout << *begin++ << std::endl;
+	std::cout << "v2 size : " << v2.size() << std::endl;
+	std::cout << "v2 value with i\n";
+	for (size_t i = 0; i < v2.size(); i++)
+		std::cout << "v2[" << i << "] = " << v2[i] << std::endl;
+	std::cout << "v2 value with ite\n";
+	for (ft::Vector<int>::iterator ite = v2.begin() ;ite != v2.end(); ite++)
+		std::cout << *ite << std::endl;
+
+	std::cout << std::endl << std::endl;
+
+	std::cout << "\t\tV1 :" << std::endl << std::endl;
+
+	std::cout << "v1 size : " << v1.size() << std::endl;
+	std::cout << "v1 value with i\n";
+	for (size_t i = 0; i < v1.size(); i++)
+		std::cout << "v1[" << i << "] = " << v1[i] << std::endl;
+	std::cout << "v1 value with ite\n";
+	for (ft::Vector<int>::iterator ite = v1.begin(); ite != v1.end(); ite++)
+		std::cout << *ite << std::endl;
 	return (0);
 //	ft::Vector<int>		vect(ite + 3, v1.end());
 //	std::vector<int>	v1(12, 15);
