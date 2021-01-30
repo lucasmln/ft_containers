@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 12:54:41 by lucas             #+#    #+#             */
-/*   Updated: 2021/01/30 13:25:44 by lucas            ###   ########.fr       */
+/*   Updated: 2021/01/30 17:09:11 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ int main(int argc, const char *argv[])
 	ft::Vector<int>::iterator	begin = v1.begin() + 3;
 	ft::Vector<int>::iterator	end = v1.end();
 	ft::Vector<int>	v2(begin, end);
+//	std::vector<int>		v1(12, 15);
+//	std::vector<int>::iterator	begin = v1.begin() + 3;
+//	std::vector<int>::iterator	end = v1.end();
+//	std::vector<int>	v2(begin, end);
+
+	v1.push_back(29);
 
 	std::cout << "\t\tV2 :" << std::endl << std::endl;
 
@@ -45,44 +51,24 @@ int main(int argc, const char *argv[])
 	std::cout << "v1 value with ite\n";
 	for (ft::Vector<int>::iterator ite = v1.begin(); ite != v1.end(); ite++)
 		std::cout << *ite << std::endl;
+
+	v1.clear();
+	std::cout << "v1 capacity : " << v1.capacity() << std::endl;
+	std::cout << "v1 size : " << v1.size() << std::endl;
+
+
+	ft::Vector<int>	v3;
+	ft::Vector<int> v4(12, 1);
+
+	for (int i = 1; i <= 10 ; i++)
+		v3.push_back(i);
+
+//	v3.push_back(15);
+	v3.resize(10, 100);
+	v4.swap(v3);
+	for (ft::Vector<int>::iterator i = v3.begin(); i != v3.end(); i++)
+		std::cout  << *i << "\t";
+	std::cout << "size end : " << v3.size() << std::endl;
+
 	return (0);
-//	ft::Vector<int>		vect(ite + 3, v1.end());
-//	std::vector<int>	v1(12, 15);
-//	std::vector<int>		vect(v1.begin() + 3, v1.end());
-/*
-	for (size_t i = 0; i < vect.size(); i++)
-		std::cout << "value at " << i << " : " << vect[i] << std::endl;
-	std::cout << "capacity : " << vect.capacity() << std::endl;
-  vect.push_back(78);
-	std::cout << "capacity : " << vect.capacity() << std::endl;
-  vect.push_back(16);
-
-  // now front equals 78, and back 16
-
-  vect.front() -= vect.back();
-
-  std::cout << "myvector.front() is now " << vect.front() << '\n';
-
-
-	std::cout << "capacity : " << vect.capacity() << std::endl;
-	vect.reserve(150);
-
-	std::cout << "capacity : " << vect.capacity() << std::endl;
-	std::cout << "value 9 & 13 : " << vect[9] << " & " << vect[13] << std::endl;
-	std::cout << "end first\n\n";
-
-	ft::Vector<int>		v2 = vect;
-//	std::vector<int>		v2 = vect;
-	vect[9] = 100;
-	std::cout << "value vect1 after change 9 & 13 : " << vect[9] << " & " << vect[13] << std::endl;
-	std::cout << "capacity : " << v2.capacity() << std::endl;
-	std::cout << "value 9 & 13 : " << v2[9] << " & " << v2[13] << std::endl;
-//	v2.clear();
-
-//	std::vector<int>::iterator it = v2.begin();
-	ft::Vector<int>::iterator it = v2.begin();
-	it = v2.begin();
-	std::cout << "capacity : " << v2[2] << std::endl;
-	v2.push_back(16);
-	*/return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 10:42:18 by lucas             #+#    #+#             */
-/*   Updated: 2021/01/30 13:20:17 by lucas            ###   ########.fr       */
+/*   Updated: 2021/01/30 17:09:00 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,339 +20,27 @@
 # include <sstream>
 # include <iostream>
 # include "traits.hpp"
-//# include "ReverseIterator.hpp"
-//# include "Iterator.hpp"
+# include "ReverseIterator.hpp"
+# include "Iterator.hpp"
 
 namespace ft
 {
-	template <typename T>
-	class Iterator
-	{
-		public:
-			typedef std::random_access_iterator_tag		iterator_category;
-			typedef	T									value_type;
-			typedef	T									&reference;
-			typedef const T								&const_reference;
-			typedef T									*pointer;
-			typedef	ptrdiff_t							difference_type;
-			typedef size_t								size_type;
-
-		private:
-			pointer						_ptr;
-			typedef Iterator			self;
-
-		public:
-			Iterator() {}
-
-			Iterator(pointer other): _ptr(other) {}
-
-			Iterator(Iterator *other)
-			{
-				this->_ptr = other->_ptr;
-			}
-
-			~Iterator() {}
-
-			reference		operator=(self const &it)
-			{
-				_ptr = it._ptr;
-				return (*this);
-			}
-
-			// INCREMENTERS
-			self			operator++()
-			{
-				++_ptr;
-				return (*this);
-			}
-
-			self			operator++(int)
-			{
-				self		it = *this;
-
-				++_ptr;
-				return (it);
-			}
-
-			self			operator+=(size_type nb)
-			{
-				_ptr += nb;
-				return (*this);
-			}
-
-			self			operator--()
-			{
-				--_ptr;
-				return (*this);
-			}
-
-			self			operator--(int)
-			{
-				self		it = *this;
-
-				--_ptr;
-				return (it);
-			}
-
-			self			operator-=(size_type nb)
-			{
-				_ptr -= nb;
-				return (*this);
-			}
-
-			// ARITHMETICS
-			self			operator+(difference_type n)
-			{
-				return (_ptr + n);
-			}
-
-			self			operator-(difference_type n)
-			{
-				return (_ptr - n);
-			}
-
-			self			operator+(self &other)
-			{
-				return (_ptr + other._ptr);
-			}
-
-			self			operator-(self &other)
-			{
-				return (_ptr - other._ptr);
-			}
-
-			// BOOLEANS
-			bool			operator==(self const &other)
-			{
-				return (_ptr == other._ptr);
-			}
-
-			bool			operator!=(self const &other)
-			{
-				return (_ptr != other._ptr);
-			}
-
-			bool			operator>=(self const &other)
-			{
-				return (_ptr >= other._ptr);
-			}
-
-			bool			operator>(self const &other)
-			{
-				return (_ptr > other._ptr);
-			}
-
-			bool			operator<=(self const &other)
-			{
-				return (_ptr <= other._ptr);
-			}
-
-			bool			operator<(self const &other)
-			{
-				return (_ptr < other._ptr);
-			}
-
-			// DEREFERENCING & ADDRESS STUFF
-			reference		operator*()
-			{
-				return (*_ptr);
-			}
-
-			const_reference	operator*() const
-			{
-				return (*_ptr);
-			}
-
-			pointer			operator->()
-			{
-				return (_ptr);
-			}
-
-			reference		operator[](size_type n)
-			{
-				return (*(_ptr + n));
-			}
-
-			const_reference	operator[](size_type n) const
-			{
-				return (*(_ptr + n));
-			}
-
-	};
-
-	template <typename T>
-	class ReverseIterator
-	{
-		public:
-			typedef std::random_access_iterator_tag		iterator_category;
-			typedef	T									value_type;
-			typedef	T &									reference;
-			typedef T const &							const_reference;
-			typedef T *									pointer;
-			typedef	ptrdiff_t							difference_type;
-			typedef size_t								size_type;
-
-		private:
-			pointer						_ptr;
-			typedef ReverseIterator <T>	self;
-
-		public:
-			ReverseIterator(): _ptr(NULL) {}
-
-			ReverseIterator(pointer elem)
-			{
-				_ptr = elem;
-			}
-
-			ReverseIterator(ReverseIterator &other)
-			{
-				*this = other;
-			}
-
-			~ReverseIterator() {}
-
-			self			operator=(const self &it)
-			{
-				_ptr = it._ptr;
-				return (*this);
-			}
-
-			// INCREMENTERS
-			self			operator++()
-			{
-				--_ptr;
-				return (*this);
-			}
-
-			self			operator++(int)
-			{
-				self		it = *this;
-
-				--_ptr;
-				return (it);
-			}
-
-			self			operator+=(size_type nb)
-			{
-				_ptr -= nb;
-				return (*this);
-			}
-
-			self			operator--()
-			{
-				++_ptr;
-				return (*this);
-			}
-
-			self			operator--(int)
-			{
-				self		it = *this;
-
-				++_ptr;
-				return (it);
-			}
-
-			self			operator-=(size_type nb)
-			{
-				_ptr += nb;
-				return (*this);
-			}
-
-			// ARITHMETICS
-			self			operator+(difference_type n)
-			{
-				return (_ptr - n);
-			}
-
-			self			operator-(difference_type n)
-			{
-				return (_ptr + n);
-			}
-
-			self			operator+(self &other)
-			{
-				return (_ptr - other._ptr);
-			}
-
-			self			operator-(self &other)
-			{
-				return (_ptr + other._ptr);
-			}
-
-			// BOOLEANS
-			bool			operator==(self const &other)
-			{
-				return (_ptr == other._ptr);
-			}
-
-			bool			operator!=(self const &other)
-			{
-				return (_ptr != other._ptr);
-			}
-
-			bool			operator>=(self const &other)
-			{
-				return (_ptr >= other._ptr);
-			}
-
-			bool			operator>(self const &other)
-			{
-				return (_ptr > other._ptr);
-			}
-
-			bool			operator<=(self const &other)
-			{
-				return (_ptr <= other._ptr);
-			}
-
-			bool			operator<(self const &other)
-			{
-				return (_ptr < other._ptr);
-			}
-
-			// DEREFERENCING & ADDRESS STUFF
-			reference		operator*()
-			{
-				return (*_ptr);
-			}
-
-			const_reference	operator*() const
-			{
-				return (*_ptr);
-			}
-
-			pointer			operator->()
-			{
-				return (_ptr);
-			}
-
-			reference		operator[](size_type n)
-			{
-				return (*(_ptr + n));
-			}
-
-			const_reference	operator[](size_type n) const
-			{
-				return (*(_ptr + n));
-			}
-	};
-
 	template <typename T, class Allocator = std::allocator<T> >
 	class Vector
 	{
 		public:
-			typedef T													value_type;
-			typedef Allocator											allocator_type;
-			typedef T													&reference;
-			typedef const T												&const_reference;
-			typedef T													*pointer;
-			typedef const T												*const_pointer;
-			ptrdiff_t													difference_type;
-			typedef size_t												size_type;
-			typedef Iterator <value_type>								iterator;
-			typedef const Iterator <value_type>							const_iterator;
-		//	typedef ReverseIterator <value_type, reference, pointer>	reverse_iterator;
-		//	typedef const ReverseIterator <value_type, reference, pointer>	const_reverse_iterator;
+			typedef T										value_type;
+			typedef Allocator								allocator_type;
+			typedef T										&reference;
+			typedef const T									&const_reference;
+			typedef T										*pointer;
+			typedef const T									*const_pointer;
+			typedef ptrdiff_t								difference_type;
+			typedef size_t									size_type;
+			typedef Iterator <value_type>					iterator;
+			typedef const Iterator <value_type>				const_iterator;
+			typedef ReverseIterator <value_type>			reverse_iterator;
+			typedef const ReverseIterator <value_type>		const_reverse_iterator;
 
 		private:
 			Allocator	_alloc;
@@ -399,7 +87,8 @@ namespace ft
 			}
 
 			template <class InputIt>
-			void				assign(InputIt first, InputIt last) //range
+			void				assign(InputIt first, InputIt last,
+				typename InputIt::difference_type * = nullptr) // range
 			{
 				for (size_type i = 0; i < _size; i++)
 					_alloc.destroy(_array[i]);
@@ -446,7 +135,7 @@ namespace ft
 			{
 				return (iterator(_array));
 			}
-			
+
 			const_iterator		begin() const
 			{
 				return (iterator(_array));
@@ -456,17 +145,12 @@ namespace ft
 			{
 				return (_size_alloc);
 			}
-
+/*
 			const_iterator		cbegin() const
 			{
 				return (const_iterator(_array));
 			}
-			
-			iterator		end()
-			{
-				return (iterator(_array + _size));
-			}
-
+*/
 			const_iterator		cend() const
 			{
 				return (const_iterator(_array + _size));
@@ -484,6 +168,33 @@ namespace ft
 				return (_size == 0 ? true : false);
 			}
 
+			iterator			end()
+			{
+				return (iterator(_array + _size));
+			}
+
+			iterator			erase(iterator position)
+			{
+				for (iterator it = position; it + 1 != end(); it++)
+					*it = *(it + 1);
+				_size -= 1;
+				return (position);
+			}
+
+			iterator			erase(iterator first, iterator last)
+			{
+				iterator f = first;
+				iterator l = last;
+				size_type	n = 0;;
+
+				for (iterator it = first; it != last; it++)
+					n++;
+				for (iterator e = end(); f != e && l != e; f++, l++)
+					*f = *l;
+				_size -= n;
+				return (l);
+			}
+
 			reference			front()
 			{
 				return (_array[0]);
@@ -494,9 +205,43 @@ namespace ft
 				return (_array[0]);
 			}
 
+			allocator_type		get_allocator() const
+			{
+				return (_alloc);
+			}
+
+			iterator			insert(iterator position, const value_type& val) //single element
+			{
+				push_back(*end());
+				for (iterator it = end() - 1; it != position - 1; it--)
+					*(it + 1) = *it;
+				*position = val;
+				return (position);
+			}
+
+			void insert			(iterator position, size_type n, const value_type& val) // fill
+			{
+				for (size_type i = 0; i < n; i++)
+					insert(position, val);
+			}
+
+			template <class InputIt>
+			void insert			(iterator position, InputIt first, InputIt last)
+			{
+				for (InputIt it = last - 1; it != first; it--)
+					insert(position, *it);
+				insert(position, *first);
+			}
+
 			size_type			max_size(void) const
 			{
 				return (std::numeric_limits<value_type>::max());
+			}
+
+			void				pop_back()
+			{
+				_alloc.destroy(&back());
+				_size--;
 			}
 
 			void				push_back(const_reference val)
@@ -505,6 +250,26 @@ namespace ft
 					reserve((_size_alloc == 0 ? 1 : _size_alloc) * 2);
 				_alloc.construct(&_array[_size], val);
 				_size++;
+			}
+
+			reverse_iterator	rbegin()
+			{
+				return (reverse_iterator(_array + _size));
+			}
+
+			const_reverse_iterator	rbegin() const
+			{
+				return (const_reverse_iterator(_array + _size));
+			}
+
+			reverse_iterator		rend()
+			{
+				return (reverse_iterator(_array));
+			}
+
+			const_reverse_iterator		rend() const
+			{
+				return (const_reverse_iterator(_array));
 			}
 
 			void				reserve(size_type n)
@@ -524,32 +289,26 @@ namespace ft
 
 			void				resize(size_type n, value_type val = value_type())
 			{
-				std::allocator<value_type>	a;
-				size_type					max = n > _size_alloc ? n : _size_alloc;
-				pointer		new_array = a.allocate(max);
-
-				if (n <= size())
-				{
-					for (size_type i = 0; i < n ; i++)
-						a.construct(&new_array[i], _array[i]);
-				}
-				else
-				{
-					for (size_type i = 0; i < size() ; i++)
-						a.construct(&new_array[i], _array[i]);
-					for (size_type i = size() ; i < max ; i++)
-						a.construct(&new_array[i], val);
-				}
-				a.destroy(_array);
-				a.deallocate(_array, _size_alloc);
-				_array = new_array;
+				std::cout << "val = " << val << std::endl;
+				if (n > _size)
+					for (size_type i = n - _size; i > 0; i--)
+						push_back(val);
+				else if (n < _size)
+					for (size_type i = _size - n; i > 0; i--)
+						pop_back();
 				_size = n;
-				_size_alloc = max;
-			};
+			}
 
 			size_type			size(void) const
 			{
 				return (_size);
+			}
+
+			void				swap(Vector& x)
+			{
+				std::swap(x._array, this->_array);
+				std::swap(x._size, this->_size);
+				std::swap(x._size_alloc, this->_size_alloc);
 			}
 
 			reference			operator[](size_type i)
