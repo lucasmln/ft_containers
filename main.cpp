@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 12:54:41 by lucas             #+#    #+#             */
-/*   Updated: 2021/01/30 17:09:11 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/01 17:53:34 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,33 @@ int main(int argc, const char *argv[])
 		std::cout  << *i << "\t";
 	std::cout << "size end : " << v3.size() << std::endl;
 
+{
+  ft::Vector<int> foo (3,100);   // three ints with a value of 100
+  ft::Vector<int> bar (2,200);   // two ints with a value of 200
+
+  if (foo==bar) std::cout << "foo and bar are equal\n";
+  if (foo!=bar) std::cout << "foo and bar are not equal\n";
+  if (foo< bar) std::cout << "foo is less than bar\n";
+  if (foo> bar) std::cout << "foo is greater than bar\n";
+  if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+  if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+}
+
+{
+  ft::Vector<int> foo (3,100);   // three ints with a value of 100
+  ft::Vector<int> bar (5,200);   // five ints with a value of 200
+
+  foo.swap(bar);
+
+  std::cout << "foo contains:";
+  for (ft::Vector<int>::iterator it = foo.begin(); it!=foo.end(); ++it)
+    std::cout << ' ' << *it;
+  std::cout << '\n';
+
+  std::cout << "bar contains:";
+  for (ft::Vector<int>::iterator it = bar.begin(); it!=bar.end(); ++it)
+    std::cout << ' ' << *it;
+  std::cout << '\n';
+}
 	return (0);
 }

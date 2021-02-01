@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 10:42:18 by lucas             #+#    #+#             */
-/*   Updated: 2021/01/30 17:09:00 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/01 17:49:16 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <limits>
 # include <sstream>
 # include <iostream>
-# include "traits.hpp"
 # include "ReverseIterator.hpp"
 # include "Iterator.hpp"
 
@@ -171,6 +170,11 @@ namespace ft
 			iterator			end()
 			{
 				return (iterator(_array + _size));
+			}
+
+			const_iterator		end() const
+			{
+				return (const_iterator(_array + _size));
 			}
 
 			iterator			erase(iterator position)
@@ -339,5 +343,58 @@ namespace ft
 				return (std::out_of_range(ss.str()));
 			}
 	};
-}
+	template <class T, class Alloc>
+	bool		operator==(const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+	{
+		if (lhs.size() != rhs.size())
+			return (false);
+		for (typename ft::Vector<T>::iterator l = lhs.begin(), r = rhs.begin();
+												l != lhs.end() ; l++, r++)
+			if (*l != *r)
+				return (false);
+		return (true);
+	}
+
+	template <class T, class Alloc>
+	bool		operator!=(const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+	{
+		return (!(lhs == rhs));
+	}
+
+	template <class T, class Alloc>
+	bool		operator>(const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+	{
+		if (lhs == rhs)
+			return (false);
+		for (typename ft::Vector<T>::iterator l = lhs.begin(), r = rhs.begin();
+													l != lhs.end(); l++, r++)
+			if (*l < *r)
+				return (false);
+		return (true);
+	}
+
+	template <class T, class Alloc>
+	bool		operator<(const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+	{
+		return (rhs > lhs);
+	}
+
+	template <class T, class Alloc>
+	bool		operator<=(const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+	{
+		return (!(rhs < lhs));
+	}
+
+	template <class T, class Alloc>
+	bool		operator>=(const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+	{
+		return (!(lhs < rhs));
+	}
+
+	template <class T, class Alloc>
+	void		swap(Vector<T,Alloc>& x, Vector<T,Alloc>& y)
+	{
+		x.swap(y);
+	}
+} // namespace ft
 #endif
