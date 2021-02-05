@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 10:40:56 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/04 18:31:39 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/05 19:54:39 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ namespace ft
 			{
 				node	*find = _head;
 
-				for (iterator it = begin(); it != pos; it++)
+				for (iterator it = begin(); it != pos && it != end(); it++)
 					find = find->_next;
 				return (find);
 			}
@@ -79,7 +79,7 @@ namespace ft
 
 			explicit	list(size_type n, const value_type& val = value_type(),
 			const allocator_type& alloc = allocator_type()):
-			_alloc(alloc)
+			_size(0), _alloc(alloc)
 			{
 				if (n > 0)
 				{
@@ -105,11 +105,13 @@ namespace ft
 				}
 			}
 
-			list(const list& x)
+			list(const list& x): _size(0), _alloc(x.get_allocator())
 			{
 				init();
-				_head->_elem = x._head->_elem;
-				for (iterator it = x.begin(); it != x.end(); it++)
+				_tail = _head;
+				if (x.size() > 0)
+					_head->_elem = x._head->_elem;
+				for (iterator it = x.begin(); x.size() > 0 && it != x.end(); it++)
 					push_back(*it);
 			}
 
@@ -154,17 +156,10 @@ namespace ft
 
 			void				clear()
 			{
-				node	*tmp = _head;
-				while (tmp != _tail)
-				{
-					tmp = _head->_next;
-					delete _head;
-					_head = tmp;
-				}
-				_head->_next = _tail;
-				_head->_before = _tail;
-				_tail->_next = _head;
-				_tail->_before = _head;
+				size_type	n = _size;
+
+				while (n-- > 0)
+					pop_back();
 				_size = 0;
 			}
 
@@ -278,14 +273,74 @@ namespace ft
 
 			void					merge(list& x)
 			{
-				(void)x;
+				bool		is_sort = true;
+				iterator	test = x.begin();
+
+				test++;
+				for (iterator it = x.begin(); test != x.end(); it++, test++)
+					if (*test < *it)
+						is_sort = false;
+				test = begin();
+				test++;
+				for (iterator it = begin(); test != end(); it++, test++)
+					if (*test < *it)
+						is_sort = false;
+				for (iterator it = x.begin(); it != x.end(); it++)
+					push_back(*it);
+				x.clear();
+				if (is_sort)
+					sort();
+			}
+
+			template <class Compare>
+			void					merge(list& x, Compare comp)
+			{
+				bool		is_sort[] = {true, true, true, true};
+				iterator	test = x.begin();
+
+				if (this == &x)
+					return ;
+				test++;
+				for (iterator it = x.begin(); test != x.end(); it++)
+				{
+					if (!comp(*it, *test))
+						is_sort[0] = false;
+					if (*test < *it)
+						is_sort[1] = false;
+					test++;
+				}
+				test = begin();
+				test++;
+				for (iterator it = begin(); test != end(); it++, test++)
+				{
+					if (!comp(*it, *test))
+						is_sort[2] = false;
+					if (*test < *it)
+						is_sort[3] = false;
+				}
+				if (is_sort[2] && is_sort[1])
+					x.sort();
+				if (is_sort[3] && is_sort[0])
+				{
+					for (iterator it = x.begin(); it != x.end(); it++)
+					{
+						if (comp(*it, *begin()))
+							push_front(*it);
+						else
+							push_back(*it);
+					}
+				}
+				else
+					for (iterator it = x.begin(); it != x.end(); it++)
+						push_back(*it);
+				x.clear();
+				if (is_sort[0] && is_sort[2])
+					sort(comp);
 			}
 
 			void					pop_back()
 			{
-				iterator	it = end();
-				it--;
-				erase(it);
+				erase(--end());
 			}
 
 			void					pop_front()
@@ -454,9 +509,73 @@ namespace ft
 				delete tmp;
 			}
 
+			void					splice(iterator position, list& x)
+			{
+				for (iterator it = x.begin(); it != x.end(); it++)
+					insert(position, *it);
+				x.clear();
+			}
+
+			void					splice(iterator position, list& x, iterator i)
+			{
+				insert(position, *i);
+				x.erase(i);
+			}
+
+			void					splice(iterator position, list& x,
+												iterator first, iterator last)
+			{
+				iterator	tmp = first;
+				
+				while (first != last)
+				{
+					insert(position, *first);
+					first++;
+				}
+				x.erase(tmp, last);
+			}
+
 			void					swap(list& x)
 			{
-				(void)x;
+				list<value_type>	tmp(x);
+
+				x = *this;
+				*this = tmp;
+			}
+
+			void					unique()
+			{
+				iterator		test;
+
+				for (iterator it = begin(); it != end(); it++)
+				{
+					test = it;
+					test++;
+					while (test != end())
+					{
+						if (*test == *it)
+							erase(test);
+						test++;
+					}
+				}
+			}
+
+			template <class BinaryPredicate>
+			void					unique(BinaryPredicate binary_pred)
+			{
+				iterator		test;
+
+				for (iterator it = begin(); it != end(); it++)
+				{
+					test = it;
+					test++;
+					while (test != end())
+					{
+						if (binary_pred(*it, *test))
+							erase(test);
+						test++;
+					}
+				}
 			}
 
 	};

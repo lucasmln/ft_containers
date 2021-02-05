@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 12:15:46 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/04 18:31:11 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/05 18:34:38 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # include "includes/ReverseIterator.hpp"
 # include "srcs/list.hpp"
 # include <list>
+# include <cmath>
 
 // a predicate implemented as a function:
 bool single_digit (const int& value) { return (value<10); }
@@ -38,6 +39,16 @@ bool compare_nocase (const std::string& first, const std::string& second)
 	}
 	return ( first.length() < second.length() );
 }
+
+// a binary predicate implemented as a function:
+bool same_integral_part (double first, double second)
+{ return ( int(first)==int(second) ); }
+
+// a binary predicate implemented as a class:
+struct is_near {
+	bool operator() (double first, double second)
+	{ return (fabs(first-second)<5.0); }
+};
 
 int main(int argc, const char *argv[])
 {
@@ -80,13 +91,14 @@ int main(int argc, const char *argv[])
 	std::cout << "\nTry to print with boucle it\n";
 	while (test != lst.end())
 	{
-		std::cout << *test << std::endl;
+		std::cout << *test << "\t";
 		test++;
 	}
-	std::cout << "success\n";
+	std::cout << "\nsuccess\n";
 
 	for (ft::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
+		std::cout << *it << "\t";
+	std::cout << std::endl;
 
 	std::cout << "push 48\n";
 	lst.push_back(48);
@@ -393,19 +405,180 @@ int main(int argc, const char *argv[])
 }
 
 {
-	std::list<int>	true_lst(4, 12);
-	std::cout << "\ntest with real list\n";
-	for (std::list<int>::iterator it = true_lst.begin(); it != true_lst.end(); it++)
-		std::cout << *it << std::endl;
+	std::cout << "\nTest with splice\n";
+	ft::list<int>		lst1;
+	ft::list<int>		lst2;
+	ft::list<int>::iterator	ite;
 
-	std::list<int> test(2, 600);
-	std::list<int>::iterator start = test.begin(), end = test.end();
-	for (int i = 0; i < 6; i++)
-		start++;
-	std::cout << "assign\n";
-	true_lst.assign(start, end);
-	for (std::list<int>::iterator it = true_lst.begin(); it != true_lst.end(); it++)
-		std::cout << *it << std::endl;
+	for (int i = 0; i < 10; i++)
+		lst1.push_back(i);
+	for (int i = 10; i < 20; i++)
+		lst2.push_back(i);
+		std::cout << "Initial value :\nlst1 : ";
+	for (ft::list<int>::iterator it = lst1.begin(); it != lst1.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << "\nlst2 : ";
+	for (ft::list<int>::iterator it = lst2.begin(); it != lst2.end(); ++it)
+		std::cout << ' ' << *it;
+
+	ite = lst1.begin();
+	ite++;
+	ite++;
+	ite++;
+	lst1.splice(ite, lst2);
+	std::cout << "lst1 value after splice with it point to 3 :\nlst1 : ";
+	for (ft::list<int>::iterator it = lst1.begin(); it != lst1.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << std::endl;
+	std::cout << "lst2 value after splice :\nlst2 : ";
+	for (ft::list<int>::iterator it = lst2.begin(); it != lst2.end(); ++it)
+		std::cout << ' ' << *it;;
+	std::cout << std::endl << std::endl;
+
+	std::cout << "Splice value 3 in lst1 to lst2\n";
+	lst2.splice (lst2.begin(), lst1, ite);
+	std::cout << "lst1 value after splice with it point to 3 :\nlst1 : ";
+	for (ft::list<int>::iterator it = lst1.begin(); it != lst1.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << std::endl;
+	std::cout << "lst2 value after splice :\nlst2 : ";
+	for (ft::list<int>::iterator it = lst2.begin(); it != lst2.end(); ++it)
+		std::cout << ' ' << *it;;
+	std::cout << std::endl << std::endl;
+
+	lst1.clear();
+	lst1.push_back(1);
+	lst1.push_back(10);
+	lst1.push_back(20);
+	lst1.push_back(30);
+	lst1.push_back(3);
+	lst1.push_back(4);
+	ite = lst1.begin();
+	for (int i = 0; i < 3; i++)
+		ite++;
+	std::cout << "mylist1 contains:";
+	for (ft::list<int>::iterator it = lst1.begin(); it != lst1.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+	std::cout << "Ite pointe on value " << *ite << " of lst1\n";
+	lst2.splice (lst2.begin(), lst1, lst1.begin(), ite);
+//	1 10 20 30 3 4
+//	lst1.splice(lst1.begin(), lst1, ite, lst1.end());
+//	lst1.insert(lst1.begin(), 12);
+	std::cout << "mylist1 contains:";
+	for (ite = lst1.begin(); ite != lst1.end(); ++ite)
+		std::cout << ' ' << *ite;
+	std::cout << '\n';
+
+	std::cout << "mylist2 contains:";
+	for (ite = lst2.begin(); ite != lst2.end(); ++ite)
+		std::cout << ' ' << *ite;
+	std::cout << '\n';;
 }
-	return 0;
+
+{
+	std::cout << "\nTest with swap\n\n";
+
+	ft::list<int> first (3,100);   // three ints with a value of 100
+	ft::list<int> second (5,200);  // five ints with a value of 200
+
+	std::cout << "First BEFORE swap : ";
+	for (ft::list<int>::iterator it=first.begin(); it!=first.end(); it++)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+
+	std::cout << "Second BEFORE swap : ";
+	for (ft::list<int>::iterator it=second.begin(); it!=second.end(); it++)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+	first.swap(second);
+
+	std::cout << "first AFTER swap:";
+	for (ft::list<int>::iterator it=first.begin(); it!=first.end(); it++)
+		std::cout << ' ' << *it;
+	std::cout << " size = " << first.size();
+	std::cout << '\n';
+
+	std::cout << "second AFTER swap:";
+	for (ft::list<int>::iterator it=second.begin(); it!=second.end(); it++)
+		std::cout << ' ' << *it;
+	std::cout << " size = " << second.size();
+	std::cout << '\n';
+
+	std::cout << "\nWith 2 empty list\n";
+	ft::list<int> lst1;   // three ints with a value of 100
+	ft::list<int> lst2;  // five ints with a value of 200
+
+	std::cout << "lst1 BEFORE swap : ";
+	for (ft::list<int>::iterator it=lst1.begin(); it!=lst1.end(); it++)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+
+	std::cout << "lst2 BEFORE swap : ";
+	for (ft::list<int>::iterator it=lst2.begin(); it!=lst2.end(); it++)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+	lst1.swap(lst2);
+
+	std::cout << "lst1 AFTER swap:";
+	for (ft::list<int>::iterator it=lst1.begin(); it!=lst1.end(); it++)
+		std::cout << ' ' << *it;
+	std::cout << " size = " << lst1.size();
+	std::cout << '\n';
+
+	std::cout << "lst2 AFTER swap:";
+	for (ft::list<int>::iterator it=lst2.begin(); it!=lst2.end(); it++)
+		std::cout << ' ' << *it;
+	std::cout << " size = " << lst2.size();
+	std::cout << '\n';
+}
+
+{
+	std::cout << "\nTest with unique\n\n";
+
+	ft::list<double>		lst;
+
+	lst.push_back(16.54);
+	lst.push_back(16.54);
+	lst.push_back(27.02);
+	lst.push_back(27.02);
+	lst.push_back(160.02);
+	lst.push_back(2.84);
+	lst.push_back(160.12);
+	lst.push_back(16.54);
+	lst.push_back(3.99);
+	lst.push_back(16.73);
+	lst.push_back(2.84);
+	lst.push_back(156.12);
+	lst.push_back(3.12);
+	lst.push_back(19.32);
+
+	std::cout << "Initial list value : ";
+	for (ft::list<double>::iterator it = lst.begin(); it !=lst.end(); it++)
+		std::cout << "|" << *it << "| ";
+	std::cout << std::endl;
+
+	lst.unique();
+
+	std::cout <<  "List value after unique(): ";
+	for (ft::list<double>::iterator it = lst.begin(); it !=lst.end(); it++)
+		std::cout << "|" << *it << "| ";
+	std::cout << std::endl;
+
+	lst.unique(same_integral_part);
+
+	std::cout <<  "List value after unique(same_integral_part): ";
+	for (ft::list<double>::iterator it = lst.begin(); it !=lst.end(); it++)
+		std::cout << "|" << *it << "| ";
+	std::cout << std::endl;
+
+	lst.unique(is_near());
+
+	std::cout <<  "List value after unique(is_near()): ";
+	for (ft::list<double>::iterator it = lst.begin(); it !=lst.end(); it++)
+		std::cout << "|" << *it << "| ";
+	std::cout << std::endl;
+}
+
+	return (0);
 }
