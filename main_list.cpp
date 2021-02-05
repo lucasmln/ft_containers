@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 12:15:46 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/05 18:34:38 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/05 22:13:56 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ bool compare_nocase (const std::string& first, const std::string& second)
 	}
 	return ( first.length() < second.length() );
 }
+
+// compare only integral part:
+bool mycomparison (double first, double second)
+{ return ( int(first) >int(second) ); }
 
 // a binary predicate implemented as a function:
 bool same_integral_part (double first, double second)
@@ -578,6 +582,118 @@ int main(int argc, const char *argv[])
 	for (ft::list<double>::iterator it = lst.begin(); it !=lst.end(); it++)
 		std::cout << "|" << *it << "| ";
 	std::cout << std::endl;
+}
+
+{
+	std::cout << "\nTest with merge :\n\n";
+
+	ft::list<double> first, second;
+
+	first.push_back (3.1);
+	first.push_back (2.2);
+	first.push_back (2.9);
+
+	second.push_back (3.7);
+	second.push_back (7.1);
+	second.push_back (1.4);
+
+	first.sort();
+	second.sort();
+
+	std::cout << "first contains before:";
+	for (ft::list<double>::iterator it=first.begin(); it!=first.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << " size = " << first.size();
+	std::cout << '\n';
+
+	std::cout << "second contains before:";
+	for (ft::list<double>::iterator it=second.begin(); it!=second.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << " size = " << second.size();
+	std::cout << '\n';
+	std::cout << '\n';
+	first.merge(second);
+
+	// (second is now empty)
+	std::cout << "second contains after 1st merge:";
+	for (ft::list<double>::iterator it=second.begin(); it!=second.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << " size = " << second.size();
+	std::cout << '\n';
+
+	std::cout << "first contains after 1st merge:";
+	for (ft::list<double>::iterator it=first.begin(); it!=first.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << " size = " << first.size();
+	std::cout << '\n';
+	std::cout << '\n';
+
+	second.push_back (15);
+	second.push_back (5);
+	second.push_back(4);
+
+	first.clear();
+	first.push_back(12.12);
+	first.push_back(10.10);
+	first.push_back(8.08);
+	first.push_back(6.06);
+	first.sort();
+	second.sort();
+
+	std::cout << "first contains before 2nd merge:";
+	for (ft::list<double>::iterator it=first.begin(); it!=first.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << " size = " << first.size();
+	std::cout << '\n';
+
+	first.merge(second,mycomparison);
+
+	std::cout << "first contains:";
+	for (ft::list<double>::iterator it=first.begin(); it!=first.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+}
+
+{
+	std::cout << "\nTest with relational operator\n\n";
+	ft::list<int> a;
+	ft::list<int> b;
+	ft::list<int> c;
+
+	a.push_back(10); a.push_back(20); a.push_back(30);
+	b.push_back(10); b.push_back(20); b.push_back(30);
+	c.push_back(30); c.push_back(20); c.push_back(10);
+
+	std::cout << " a = {10, 20, 30}\n";
+	std::cout << " b = {10, 20, 30}\n";
+	std::cout << " c = {30, 20, 10}\n\n";
+	if (a==b) std::cout << "a and b are equal\n";
+	if (b!=c) std::cout << "b and c are not equal\n";
+	if (b<c) std::cout << "b is less than c\n";
+	if (c>b) std::cout << "c is greater than b\n";
+	if (a<=b) std::cout << "a is less than or equal to b\n";
+	if (a>=b) std::cout << "a is greater than or equal to b\n";
+}
+
+{
+	std::cout << "\nTest with overload swap\n\n";
+
+	std::list<int> foo (3,100);   // three ints with a value of 100
+	std::list<int> bar (5,200);   // five ints with a value of 200
+
+	std::cout << "Foo = 100 100 100\n";
+	std::cout << "Bar = 200 200 200 200 200\n";
+	std::swap(foo,bar);
+
+	std::cout << "foo contains:";
+	for (std::list<int>::iterator it = foo.begin(); it!=foo.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+
+	std::cout << "bar contains:";
+	for (std::list<int>::iterator it = bar.begin(); it!=bar.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
 }
 
 	return (0);

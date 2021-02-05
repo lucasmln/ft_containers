@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 10:40:56 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/05 19:54:39 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/05 22:14:11 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ namespace ft
 
 			const_iterator		begin() const
 			{
-				return (const_iterator(_head->_next));
+				return (const_iterator(_head));
 			}
 
 			void				clear()
@@ -296,11 +296,10 @@ namespace ft
 			void					merge(list& x, Compare comp)
 			{
 				bool		is_sort[] = {true, true, true, true};
-				iterator	test = x.begin();
+				iterator	test = ++x.begin();
 
 				if (this == &x)
 					return ;
-				test++;
 				for (iterator it = x.begin(); test != x.end(); it++)
 				{
 					if (!comp(*it, *test))
@@ -309,8 +308,7 @@ namespace ft
 						is_sort[1] = false;
 					test++;
 				}
-				test = begin();
-				test++;
+				test = ++begin();
 				for (iterator it = begin(); test != end(); it++, test++)
 				{
 					if (!comp(*it, *test))
@@ -321,7 +319,6 @@ namespace ft
 				if (is_sort[2] && is_sort[1])
 					x.sort();
 				if (is_sort[3] && is_sort[0])
-				{
 					for (iterator it = x.begin(); it != x.end(); it++)
 					{
 						if (comp(*it, *begin()))
@@ -329,7 +326,6 @@ namespace ft
 						else
 							push_back(*it);
 					}
-				}
 				else
 					for (iterator it = x.begin(); it != x.end(); it++)
 						push_back(*it);
@@ -577,7 +573,58 @@ namespace ft
 					}
 				}
 			}
-
 	};
+
+	template <class T, class Alloc>
+	bool	operator==(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs)
+	{
+		if (lhs.size() != rhs.size())
+			return (false);
+		for (typename list<T>::iterator l = lhs.begin(), r = rhs.begin();
+													l != lhs.end(); l++, r++)
+		{
+			if (*l != *r)
+				return (false);
+		}
+		return (true);
+	}
+
+	template <class T, class Alloc>
+	bool	operator!=(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs)
+	{
+		return (!(lhs == rhs));
+	}
+
+	template <class T, class Alloc>
+	bool	operator<(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs)
+	{
+		if ((*(lhs.begin()) < *(rhs.begin())))
+			return (true);
+		return (false);
+	}
+
+	template <class T, class Alloc>
+	bool	operator<=(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs)
+	{
+		return (!(rhs < lhs));
+	}
+
+	template <class T, class Alloc>
+	bool	operator>(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs)
+	{
+		return ((rhs < lhs));
+	}
+
+	template <class T, class Alloc>
+	bool	operator>=(const list<T,Alloc>& lhs, const list<T,Alloc>& rhs)
+	{
+		return (!(lhs < rhs));
+	}
+
+	template <class T, class Alloc>
+	void	swap(list<T,Alloc>& x, list<T,Alloc>& y)
+	{
+		x.swap(y);
+	}
 } //namespace ft
 #endif
