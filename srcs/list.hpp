@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 10:40:56 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/05 22:14:11 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/08 13:25:46 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,19 @@ namespace ft
 					_head->_elem = x._head->_elem;
 				for (iterator it = x.begin(); x.size() > 0 && it != x.end(); it++)
 					push_back(*it);
+			}
+
+			~list()
+			{
+				clear();
+				delete _head;
+			}
+
+			list				&operator=(const list& x)
+			{
+				clear();
+				insert(begin(), x.begin(), x.end());
+				return (*this);
 			}
 
 			template <class InputIt>
