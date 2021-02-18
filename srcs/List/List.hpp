@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   list.hpp                                           :+:      :+:    :+:   */
+/*   List.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 10:40:56 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/08 13:25:46 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/18 15:45:20 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define LIST_HPP
 
 # include <memory>
-# include "./node.hpp"
-# include "../includes/Bidirectional_iterator.hpp"
-# include "../includes/Reverse_Bidirectional_iterator.hpp"
+# include "./includes/node.hpp"
+# include "./includes/Bidirectional_iterator.hpp"
+# include "./includes/Reverse_Bidirectional_iterator.hpp"
 
 namespace ft
 {
@@ -46,8 +46,8 @@ namespace ft
 			typedef node<T>	node;
 			node			*_head;
 			node			*_tail;
-			size_type			_size;
-			allocator_type		_alloc;
+			size_type		_size;
+			allocator_type	_alloc;
 
 			void		init(void)
 			{

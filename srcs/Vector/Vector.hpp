@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 10:42:18 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/04 11:43:29 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/18 15:41:10 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <limits>
 # include <sstream>
 # include <iostream>
-# include "../includes/ReverseIterator.hpp"
-# include "../includes/Iterator.hpp"
+# include "./includes/ReverseIterator.hpp"
+# include "./includes/Iterator.hpp"
 
 namespace ft
 {
