@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 18:17:05 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/18 15:50:07 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/18 16:27:01 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,22 @@
 #include <stack>          // std::stack
 #include "../Stack.hpp"
 
+#ifndef MODE
+# define MODE ft
+#endif
+
 int main ()
 {
 {
 	std::cout << "Test with constructor :\n";
-		ft::list<int> mydeck(3,100);        // deque with 3 elements
-	ft::list<int> mylist(2,200);         // list with 2 elements
+		MODE::list<int> mydeck(3,100);        // deque with 3 elements
+	MODE::list<int> mylist(2,200);         // list with 2 elements
 
-	ft::stack<int> first;                 // empty stack
-	ft::stack<int, ft::list<int> > second(mydeck);       // stack initialized to copy of deque
+	MODE::stack<int> first;                 // empty stack
+	MODE::stack<int, MODE::list<int> > second(mydeck);       // stack initialized to copy of deque
 
-	ft::stack<int, ft::list<int> > third; // empty stack with list as underlying container
-	ft::stack<int, ft::list<int> > fourth(mylist);
+	MODE::stack<int, MODE::list<int> > third; // empty stack with list as underlying container
+	MODE::stack<int, MODE::list<int> > fourth(mylist);
 
 	std::cout << "size of first: " << first.size() << '\n';
 	std::cout << "size of second: " << second.size() << '\n';
@@ -37,7 +41,7 @@ int main ()
 
 {
 	std::cout << "\nTest with empty() :\n";
-	ft::stack<int> mystack;
+	MODE::stack<int> mystack;
 	int sum (0);
 
 	mystack.empty() ? std::cout << "mystack is empty\n": std::cout << "mystack is not empty\n";
@@ -47,27 +51,27 @@ int main ()
 
 	while (!mystack.empty())
 	{
-		sum += mystack.front();
+		sum += mystack.top();
 		mystack.pop();
 	}
 	std::cout << "total: " << sum << '\n';
 }
 
 {
-	std::cout << "\nTest with front() : \n";
-	ft::stack<int> mystack;
+	std::cout << "\nTest with top() : \n";
+	MODE::stack<int> mystack;
 
 	mystack.push(77);
 	mystack.push(16);
 
 
-	std::cout << "mystack.front() is now " << mystack.front() << '\n';
+	std::cout << "mystack.top() is now " << mystack.top() << '\n';
 }
 
 {
 	std::cout << "\nTest with pop() and push() :\n";
 
-	ft::stack<int> mystack;
+	MODE::stack<int> mystack;
 	int myint;
 
 	std::cout << "Please enter some integers (enter 0 to end):\n";
@@ -80,7 +84,7 @@ int main ()
 	std::cout << "mystack contains: ";
 	while (!mystack.empty())
 	{
-		std::cout << ' ' << mystack.front();
+		std::cout << ' ' << mystack.top();
 		mystack.pop();
 	}
 	std::cout << '\n';
@@ -89,7 +93,7 @@ int main ()
 {
 	std::cout << "\nTest with size() :\n";
 
-	ft::stack<int> myints;
+	MODE::stack<int> myints;
 	std::cout << "0. size: " << myints.size() << '\n';
 
 	for (int i=0; i<5; i++) myints.push(i);
@@ -103,9 +107,9 @@ int main ()
 {
 	std::cout << "\nTest with relational operator :\n";
 
-	ft::stack<int>	a;
-	ft::stack<int>	b;
-	ft::stack<int>	c;
+	MODE::stack<int>	a;
+	MODE::stack<int>	b;
+	MODE::stack<int>	c;
 
 	a.push(10); a.push(20); a.push(30);
 	b.push(10); b.push(20); b.push(30);

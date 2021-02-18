@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.cpp                                           :+:      :+:    :+:   */
+/*   main_map.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/04 19:35:48 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/18 15:39:28 by lucas            ###   ########.fr       */
+/*   Created: 2021/02/18 16:13:09 by lucas             #+#    #+#             */
+/*   Updated: 2021/02/18 16:52:33 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,16 @@
 #include <iostream>
 #include <list>
 #include <map>
+#include <utility>
 #include <cmath>
+
+#ifndef MODE
+# define MODE ft
+#endif
+
+#ifndef PAIR
+# define PAIR Pair
+#endif
 
 bool fncomp (char lhs, char rhs) {return lhs>rhs;}
 
@@ -32,26 +41,25 @@ int main ()
 {
 	srand(time(NULL));
 
-	ft::map<char, int>				test;
-	ft::map<char, int>				test2;
-	ft::map<char, int>::iterator	ite;
-	Pair<char, int>					p;
-	char							c = 'a' + (rand() % 26);
+	MODE::map<char, int>				test;
+	MODE::map<char, int>				test2;
+	MODE::map<char, int>::iterator	ite;
+	PAIR<char, int>					p;
+	char							c = 'a';
 	int								i = 1;
 
 	std::cout << "Test with insert :\n\n";
-	std::cout << "Add ten random pair to map :\n";
+	std::cout << "Add ten pair to map :\n";
 	while (i <= 10)
 	{
 		std::cout  << "{" << c << "/" << i << "}" << " ";
 		p.first = c++;
 		p.second = i++;
 		test.insert(p);
-		c = 'a' + (rand() % 26);
 	}
-	std::cout << "size " << test.end()->first << std::endl;
+	std::cout << "size " << test.size() << std::endl;
 	std::cout << std::endl;
-	for (ft::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
+	for (MODE::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test.size() << std::endl;
 
@@ -61,13 +69,13 @@ int main ()
 	ite++;
 	std::cout << "\nAdd values in test2 with range iterator start to the fourth value of test :\n";
 	test2.insert(ite, test.end());
-	for (ft::map<char, int>::iterator it = test2.begin(); it != test2.end(); it++)
+	for (MODE::map<char, int>::iterator it = test2.begin(); it != test2.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test2.size() << std::endl;
 
 	std::cout << "\nAdd three first values of test in test2 with hint :\n";
 	ite = test.begin();
-	ft::map<char, int>::iterator itt = test2.begin();
+	MODE::map<char, int>::iterator itt = test2.begin();
 	for (int i = 0; i < 3; i++)
 	{
 		test2.insert(itt, *ite);
@@ -75,22 +83,22 @@ int main ()
 		itt = test2.begin();
 		itt++;
 	}
-	for (ft::map<char, int>::iterator it = test2.begin(); it != test2.end(); it++)
+	for (MODE::map<char, int>::iterator it = test2.begin(); it != test2.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test2.size() << std::endl;
 }
 
 {
-	ft::map<char, int>				test;
-	ft::map<char, int>				test2;
-	ft::map<char, int>::iterator	ite;
-	Pair<char, int>					p;
+	MODE::map<char, int>				test;
+	MODE::map<char, int>				test2;
+	MODE::map<char, int>::iterator	ite;
+	PAIR<char, int>					p;
 	char	tab[] = "zhmegfncsxd";
 
 	std::cout << "\nTest with insert :\n\n";
 	std::cout << "Add eleven pair to map and key value 'z' :\n";
 
-	system("cat tree.txt");
+	system("cat srcs/Map/test/tree.txt");
 	std::cout << std::endl;
 	for (int i = 0; i < 11; i++)
 	{
@@ -101,35 +109,35 @@ int main ()
 	}
 	std::cout << std::endl;
 
-	for (ft::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
+	for (MODE::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test.size() << std::endl;
 
 	std::cout << "Erase node with one child at head. Value 'z'\n";
 	test.erase('z');
-	for (ft::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
+	for (MODE::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test.size() << std::endl;
 
 	std::cout << "Erase leaf (No children) value 'd'\n";
 	test.erase('d');
-	for (ft::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
+	for (MODE::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test.size() << std::endl;
 
 	std::cout << "Erase node with 2 children value 'e'\n";
 	test.erase('e');
-	for (ft::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
+	for (MODE::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test.size() << std::endl;
 
 	std::cout << "Erase begin() value '" << test.begin()->first << "'" <<std::endl;
 	test.erase(test.begin());
-	for (ft::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
+	for (MODE::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test.size() << std::endl;
 
-	ft::map<char, int>::iterator ender = test.end();
+	MODE::map<char, int>::iterator ender = test.end();
 	ite = test.begin();
 	ite++; ite++;
 	ender--;
@@ -137,7 +145,7 @@ int main ()
 	ender--;
 	std::cout << "Erase begin() +2(inclus) to end() -1(exclu) value. " << ite->first << " to " << ender->first << std::endl;
 	test.erase(ite, ender);
-	for (ft::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
+	for (MODE::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test.size() << std::endl;
 	
@@ -146,7 +154,7 @@ int main ()
 	std::cout << "Erase begin() to end() value. " << test.begin()->first << " to " <<
 															ender->first << "(include)" << std::endl;
 	test.erase(test.begin(), test.end());
-	for (ft::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
+	for (MODE::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test.size() << std::endl;
 	for (int i = 0; i < 11; i++)
@@ -159,7 +167,7 @@ int main ()
 
 	std::cout << std::endl;
 	std::cout << "Reinsert the initial map value after erase all" << std::endl;
-	for (ft::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
+	for (MODE::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test.size() << std::endl;
 }
@@ -167,9 +175,9 @@ int main ()
 {
 	std::cout << "\n\nTest with clear() :\n\n";
 
-	ft::map<char, int>				test;
-	ft::map<char, int>::iterator	ite;
-	Pair<char, int>					p;
+	MODE::map<char, int>				test;
+	MODE::map<char, int>::iterator	ite;
+	PAIR<char, int>					p;
 	char	tab[] = "zhmegfncsxd";
 
 	for (int i = 0; i < 11; i++)
@@ -182,13 +190,13 @@ int main ()
 
 	std::cout << std::endl;
 	std::cout << "Value in order :" << std::endl;
-	for (ft::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
+	for (MODE::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test.size() << std::endl;
 
 	std::cout << "Clear the map, print value and size\n";
 	test.clear();
-	for (ft::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
+	for (MODE::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test.size() << std::endl;
 
@@ -202,12 +210,12 @@ int main ()
 
 	std::cout << std::endl;
 	std::cout << "Reinsert the initial map value after erase all" << std::endl;
-	for (ft::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
+	for (MODE::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test.size() << std::endl;
 
 	std::cout << "\n\nTest with count :\n\n";
-	for (ft::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
+	for (MODE::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test.size() << std::endl;
 
@@ -235,9 +243,9 @@ int main ()
 	else
 		std::cout << "c is not in the map\n";
 
-	ft::map<char, int>				test2;
-	ft::map<char, int>::iterator	ender;
-	ft::map<char, int>::iterator	beginner;
+	MODE::map<char, int>				test2;
+	MODE::map<char, int>::iterator	ender;
+	MODE::map<char, int>::iterator	beginner;
 
 	std::cout << "\n\nTest with lower_bound, upper_bound, equal_rabge :\n\n";
 	std::cout << "Value in map :\n";
@@ -246,7 +254,7 @@ int main ()
 	test2['c'] = 60;
 	test2['d'] = 80;
 	test2['e'] = 100;
-	for (ft::map<char, int>::iterator it = test2.begin(); it != test2.end(); it++)
+	for (MODE::map<char, int>::iterator it = test2.begin(); it != test2.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test2.size() << std::endl;
 
@@ -255,24 +263,24 @@ int main ()
 	std::cout << "upper_bound('d') is " << ender->first << " lower_bound('b') is " << beginner->first << std::endl;
 	std::cout << "Erased values between iterator return by lower/upper_bound\n";
 	test2.erase(beginner, ender);
-	for (ft::map<char, int>::iterator it = test2.begin(); it != test2.end(); it++)
+	for (MODE::map<char, int>::iterator it = test2.begin(); it != test2.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test2.size() << std::endl;
 }
 
 {
-	ft::map<char,int> mymap;
+	MODE::map<char,int> mymap;
 
 	mymap['a']=10;
 	mymap['b']=20;
 	mymap['c']=30;
 
 	std::cout << "\nTest with equal_rang :\n\n";
-	for (ft::map<char, int>::iterator it = mymap.begin(); it != mymap.end(); it++)
+	for (MODE::map<char, int>::iterator it = mymap.begin(); it != mymap.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << mymap.size() << std::endl;
 
-	Pair<ft::map<char,int>::iterator, ft::map<char,int>::iterator> ret;
+	PAIR<MODE::map<char,int>::iterator, MODE::map<char,int>::iterator> ret;
 	std::cout << "equal_range('b')\n";
 	ret = mymap.equal_range('b');
 
@@ -289,8 +297,8 @@ int main ()
 
 {
 	std::cout << "\nTest with operator = :\n";
-	ft::map<char, int>		test;
-	ft::map<char, int>		test2;
+	MODE::map<char, int>		test;
+	MODE::map<char, int>		test2;
 
 	test['h'] = 15;
 	test['o'] = 150;
@@ -299,12 +307,12 @@ int main ()
 	test['i'] = 13;
 
 	std::cout << "print test :\n";
-	for (ft::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
+	for (MODE::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test.size() << std::endl;
 	
 	std::cout << "print test2 :\n";
-	for (ft::map<char, int>::iterator it = test2.begin(); it != test2.end(); it++)
+	for (MODE::map<char, int>::iterator it = test2.begin(); it != test2.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test2.size() << std::endl;
 
@@ -312,12 +320,12 @@ int main ()
 	test2 = test;
 	test.clear();
 	std::cout << "print test :\n";
-	for (ft::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
+	for (MODE::map<char, int>::iterator it = test.begin(); it != test.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test.size() << std::endl;
 	
 	std::cout << "print test2 :\n";
-	for (ft::map<char, int>::iterator it = test2.begin(); it != test2.end(); it++)
+	for (MODE::map<char, int>::iterator it = test2.begin(); it != test2.end(); it++)
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test2.size() << std::endl;
 }
@@ -353,18 +361,18 @@ int main ()
 
 {
 	std::cout << "\nTest with relational operators :\n\n";
-	ft::map<char,int> foo,bar;
+	MODE::map<char,int> foo,bar;
 	foo['a']=100;
 	foo['b']=200;
 	bar['a']=10;
 	bar['z']=1000;
 
 	std::cout << "FOO contains:\n";
-	for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+	for (MODE::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
 		std::cout << it->first << " => " << it->second << '\n';
 
 	std::cout << "BAR contains:\n";
-	for (ft::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+	for (MODE::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
 		std::cout << it->first << " => " << it->second << '\n';
 
 	// foo ({{a,100},{b,200}}) vs bar ({a,10},{z,1000}}):

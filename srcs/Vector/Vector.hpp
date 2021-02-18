@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 10:42:18 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/18 15:41:10 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/18 16:15:53 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 namespace ft
 {
 	template <typename T, class Allocator = std::allocator<T> >
-	class Vector
+	class vector
 	{
 		public:
 			typedef T										value_type;
@@ -50,9 +50,9 @@ namespace ft
 
 		public:
 			//default
-			Vector(const allocator_type& alloc = allocator_type()): _alloc(alloc), _array(NULL), _size(0), _size_alloc(0) {}
+			vector(const allocator_type& alloc = allocator_type()): _alloc(alloc), _array(NULL), _size(0), _size_alloc(0) {}
 			//fill
-			explicit Vector(size_type n, const value_type &value = value_type(),
+			explicit vector(size_type n, const value_type &value = value_type(),
 			const allocator_type& alloc = allocator_type()):
 			_alloc(alloc), _array(NULL), _size(0), _size_alloc(0)
 			{
@@ -60,14 +60,14 @@ namespace ft
 					push_back(value);
 			}
 			//copy
-			Vector(const Vector& x): _alloc(x._alloc), _array(NULL), _size(0), _size_alloc(0)
+			vector(const vector& x): _alloc(x._alloc), _array(NULL), _size(0), _size_alloc(0)
 			{
 				for (size_type i = 0; i < x.capacity(); i++)
 					push_back(x[i]);
 			}
 			//range
 			template <class InputIt>
-				Vector (InputIt first, InputIt last,
+				vector (InputIt first, InputIt last,
 				const allocator_type& alloc = allocator_type(),
 				typename InputIt::difference_type * = nullptr):
 				_alloc(alloc), _array(NULL), _size(0), _size_alloc(0)
@@ -79,7 +79,7 @@ namespace ft
 					}
 				}
 			//destructor
-			~Vector()
+			~vector()
 			{
 				_alloc.destroy(_array);
 				_alloc.deallocate(_array, _size_alloc);
@@ -310,7 +310,7 @@ namespace ft
 				return (_size);
 			}
 
-			void				swap(Vector& x)
+			void				swap(vector& x)
 			{
 				std::swap(x._array, this->_array);
 				std::swap(x._size, this->_size);
@@ -346,11 +346,11 @@ namespace ft
 			}
 	};
 	template <class T, class Alloc>
-	bool		operator==(const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+	bool		operator==(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 	{
 		if (lhs.size() != rhs.size())
 			return (false);
-		for (typename ft::Vector<T>::iterator l = lhs.begin(), r = rhs.begin();
+		for (typename ft::vector<T>::iterator l = lhs.begin(), r = rhs.begin();
 												l != lhs.end() ; l++, r++)
 			if (*l != *r)
 				return (false);
@@ -358,17 +358,17 @@ namespace ft
 	}
 
 	template <class T, class Alloc>
-	bool		operator!=(const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+	bool		operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 	{
 		return (!(lhs == rhs));
 	}
 
 	template <class T, class Alloc>
-	bool		operator>(const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+	bool		operator>(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 	{
 		if (lhs == rhs)
 			return (false);
-		for (typename ft::Vector<T>::iterator l = lhs.begin(), r = rhs.begin();
+		for (typename ft::vector<T>::iterator l = lhs.begin(), r = rhs.begin();
 													l != lhs.end(); l++, r++)
 			if (*l < *r)
 				return (false);
@@ -376,25 +376,25 @@ namespace ft
 	}
 
 	template <class T, class Alloc>
-	bool		operator<(const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+	bool		operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 	{
 		return (rhs > lhs);
 	}
 
 	template <class T, class Alloc>
-	bool		operator<=(const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+	bool		operator<=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 	{
 		return (!(rhs < lhs));
 	}
 
 	template <class T, class Alloc>
-	bool		operator>=(const Vector<T,Alloc>& lhs, const Vector<T,Alloc>& rhs)
+	bool		operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 	{
 		return (!(lhs < rhs));
 	}
 
 	template <class T, class Alloc>
-	void		swap(Vector<T,Alloc>& x, Vector<T,Alloc>& y)
+	void		swap(vector<T,Alloc>& x, vector<T,Alloc>& y)
 	{
 		x.swap(y);
 	}

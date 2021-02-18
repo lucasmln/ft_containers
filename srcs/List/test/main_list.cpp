@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 12:15:46 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/18 15:44:30 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/18 16:42:18 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 # include "../List.hpp"
 # include <list>
 # include <cmath>
+
+#ifndef MODE
+# define MODE ft
+#endif
 
 // a predicate implemented as a function:
 bool single_digit (const int& value) { return (value<10); }
@@ -59,14 +63,14 @@ int main(int argc, const char *argv[])
 	(void)argv;
 	(void)argc;
 {
-	ft::list<int>	lst(4, 12);
-	ft::list<int>	lst2(7);
-	ft::list<int>	lst3;
-	ft::list<int>::iterator		ite = lst.begin();
+	MODE::list<int>	lst(4, 12);
+	MODE::list<int>	lst2(7);
+	MODE::list<int>	lst3;
+	MODE::list<int>::iterator		ite = lst.begin();
 
 	std::cout << "Lst2 = lst\n";
 	lst2 = lst;
-	for (ft::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
+	for (MODE::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << "\t";
 	std::cout << std::endl;
 
@@ -88,7 +92,7 @@ int main(int argc, const char *argv[])
 	lst.insert(ite, 3, 1);
 
 
-	ft::list<int>::iterator		test = lst.begin();
+	MODE::list<int>::iterator		test = lst.begin();
 	while (test != lst.end())
 		test++;
 	test++;
@@ -100,7 +104,7 @@ int main(int argc, const char *argv[])
 	}
 	std::cout << "\nsuccess\n";
 
-	for (ft::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
+	for (MODE::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << "\t";
 	std::cout << std::endl;
 
@@ -122,102 +126,103 @@ int main(int argc, const char *argv[])
 	std::cout << "Clear lst\n";
 	lst.clear();
 	std::cout << "lst size = " << lst.size() << std::endl;
-	for (ft::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
+	for (MODE::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
 }
 
 {
 	std::cout << "Assign test\n\n";
-	ft::list<int>	lst(4, 12);
+	MODE::list<int>	lst(4, 12);
 
-	for (ft::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
+	for (MODE::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
 
-	ft::list<int> test(2, 600);
-	ft::list<int>::iterator start = test.begin(), end = test.end();
+	MODE::list<int> test(2, 600);
+	MODE::list<int>::iterator start = test.begin(), end = test.end();
 	for (int i = 0; i < 6; i++)
 		start++;
 
 	std::cout << "Assign two value of 600 with iterator\n";
 	lst.assign(start, end);
-	for (ft::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
+	for (MODE::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
 
 	std::cout << "Assign eight value of 90 with size\n";
 	lst.assign(8, 90);
-	for (ft::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
+	for (MODE::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
 
 	std::cout << "\nCreate list with iterator\n";
-	ft::list<int>	with_it(start, end);
-	for (ft::list<int>::iterator it = with_it.begin(); it != with_it.end(); it++)
+	MODE::list<int>	with_it(start, end);
+	for (MODE::list<int>::iterator it = with_it.begin(); it != with_it.end(); it++)
 		std::cout << *it << std::endl;
 
 	std::cout << "\nCreate list with copy of lst\n";
-	ft::list<int>	copy(lst);
-	for (ft::list<int>::iterator it = copy.begin(); it != copy.end(); it++)
+	MODE::list<int>	copy(lst);
+	for (MODE::list<int>::iterator it = copy.begin(); it != copy.end(); it++)
 		std::cout << *it << std::endl;
 }
 
 {
 	std::cout << "\nErase test :\n";
-	ft::list<int>				lst;
-	ft::list<int>::iterator		it = lst.begin();
+	MODE::list<int>				lst;
+	MODE::list<int>::iterator		it;
 
 	std::cout << "Create list with values 0 to 9\n";
 	for (int i = 0; i < 10; i++)
 		lst.push_back(i);
+	it = lst.begin();
 	for (int i = 0; i < 7; i++)
 		it++;
-	std::cout << "Erase the value seven\n";
+	std::cout << "Erase the value " << *it << std::endl;
 	lst.erase(it);
-	for (ft::list<int>::iterator ite = lst.begin(); ite != lst.end(); ite++)
+	for (MODE::list<int>::iterator ite = lst.begin(); ite != lst.end(); ite++)
 		std::cout << *ite << std::endl;
 
 	std::cout << "Erase value 0 to 4\n";
-	ft::list<int>::iterator ite = lst.begin();
+	MODE::list<int>::iterator ite = lst.begin();
 	for (int i = 0; i < 5; i++)
 		ite++;
 	lst.erase(lst.begin(), ite);
-	for (ft::list<int>::iterator ite = lst.begin(); ite != lst.end(); ite++)
+	for (MODE::list<int>::iterator ite = lst.begin(); ite != lst.end(); ite++)
 		std::cout << *ite << std::endl;
 }
 
 {
 	std::cout << "\nInsert test\n";
-	ft::list<int>			lst;
-	ft::list<int>::iterator	it = lst.begin();
-	ft::list<int>::iterator	i = lst.begin();
+	MODE::list<int>			lst;
+	MODE::list<int>::iterator	it;
 
 	std::cout << "Create list with values 0 to 9\n";
 	for (int i = 0; i < 10; i++)
 		lst.push_back(i);
+	it = lst.begin();
 	it++;
 	it++;
 	std::cout << "Insert value 99 before the third value\n";
 	lst.insert(it, 99);
-	for (ft::list<int>::iterator ite = lst.begin(); ite != lst.end(); ite++)
+	for (MODE::list<int>::iterator ite = lst.begin(); ite != lst.end(); ite++)
 		std::cout << *ite << "\t";
 	std::cout << std::endl;
 
 	std::cout << "Insert three value of 1000 before the first value\n";
-	ft::list<int>::iterator		t = lst.begin();
+	MODE::list<int>::iterator		t = lst.begin();
 	lst.insert(t, 3, 1000);
-	for (ft::list<int>::iterator ite = lst.begin(); ite != lst.end(); ite++)
+	for (MODE::list<int>::iterator ite = lst.begin(); ite != lst.end(); ite++)
 		std::cout << *ite << "\t";
 	std::cout << std::endl;
 
 	std::cout << "Insert value with iterator 96 to 99 before the fourth value\n";
-	ft::list<int>		test;
+	MODE::list<int>		test;
 	for (int i = 90; i < 100; i++)
 		test.push_back(i);
-	ft::list<int>::iterator		it_test = test.begin();
+	MODE::list<int>::iterator		it_test = test.begin();
 	it++;
 	it++;
 	for (int x = 0; x < 6; x++)
 		it_test++;
 	lst.insert(it, it_test, test.end());
-	for (ft::list<int>::iterator ite = lst.begin(); ite != lst.end(); ite++)
+	for (MODE::list<int>::iterator ite = lst.begin(); ite != lst.end(); ite++)
 		std::cout << *ite << "\t";
 	std::cout << std::endl;
 
@@ -226,64 +231,64 @@ int main(int argc, const char *argv[])
 {
 	std::cout << "\nPop/push  back/front test :\n\n";
 
-	ft::list<int>	lst;
+	MODE::list<int>	lst;
 
 	for (int i = 0; i < 5; i++)
 		lst.push_back(i);
 	lst.push_back(100);
 	std::cout << "Initial value of lst : ";
-	for (ft::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
+	for (MODE::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
 		std::cout << *i << "\t";
 	std::cout << std::endl;
 	std::cout << "Pop back 2 times\n";
 	lst.pop_back();
 	lst.pop_back();
 //	lst.insert(lst.begin(), 4, 12);
-	for (ft::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
+	for (MODE::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
 		std::cout << *i << "\t";
 	std::cout << "\nPop front 2 times\n";
 	lst.pop_front();
 	lst.pop_front();
-	for (ft::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
+	for (MODE::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
 		std::cout << *i << "\t";
 	std::cout << "\nPop front 3 times\n";
-	lst.pop_front();
-	lst.pop_front();
-	lst.pop_front();
-	for (ft::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
+//	lst.pop_front();
+//	lst.pop_front();
+//	lst.pop_front();
+	for (MODE::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
 		std::cout << *i << "\t";
 
 	std::cout << "\nPush front values 0 to 8\n";
 	for (int i = 0; i < 9; i++)
 		lst.push_front(i);
-	for (ft::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
+	for (MODE::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
 		std::cout << *i << "\t";
 }
 
 {
 	std::cout << "\n\nTest with remove\n";
 
-	ft::list<int>		lst;
+	MODE::list<int>		lst;
 
 	for (int i = 0; i < 10; i++)
 		lst.push_back(i % 3);
 	std::cout << "Initial value : ";
-	for (ft::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
+	for (MODE::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
 		std::cout << *i << "\t";
 	std::cout << std::endl;
 	std::cout << "Remove all value equal to 0\n";
 	lst.remove(0);
-	for (ft::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
+	for (MODE::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
 		std::cout << *i << "\t";
 	std::cout << std::endl;
 	std::cout << "Remove all value equal to 2\n";
 	lst.remove(2);
-	for (ft::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
+	for (MODE::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
 		std::cout << *i << "\t";
 	std::cout << std::endl;
 	std::cout << "Remove all value equal to 1\n";
 	lst.remove(1);
-	for (ft::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
+	for (MODE::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
 		std::cout << *i << "\t";
 	std::cout << std::endl;
 	std::cout << "size = " << lst.size() << std::endl;
@@ -293,7 +298,7 @@ int main(int argc, const char *argv[])
 {
 	std::cout << "\nTest with remove_if :\n\n";
 
-	ft::list<int>	lst;
+	MODE::list<int>	lst;
 
 	lst.push_back(15);
 	lst.push_back(36);
@@ -310,7 +315,7 @@ int main(int argc, const char *argv[])
 //	lst.remove_if (is_even());               // emptu
 
 	std::cout << "mylist contains:";
-	for (ft::list<int>::iterator it = lst.begin(); it != lst.end(); ++it)
+	for (MODE::list<int>::iterator it = lst.begin(); it != lst.end(); ++it)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
 }
@@ -318,39 +323,39 @@ int main(int argc, const char *argv[])
 {
 	std::cout << "\nTest with resize :\n";
 
-	ft::list<int>	lst;
+	MODE::list<int>	lst;
 
 	for (int i = 0; i < 20; i+= 2)
 		lst.push_back(i);
 	std::cout << "Initial value : ";
-	for (ft::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
+	for (MODE::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
 		std::cout << *i << "\t";
 	std::cout << std::endl;
 	std::cout << "Resize 15 with _size 10\n";
 	lst.resize(15, 1);
 	std::cout << "size =" << lst.size() << "\t";
-	for (ft::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
+	for (MODE::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
 		std::cout << *i << "\t";
 	std::cout << std::endl;
 
 	std::cout << "Resize 5 with _size 15\n";
 	lst.resize(5, 8);
 	std::cout << "size =" << lst.size() << "\t";
-	for (ft::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
+	for (MODE::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
 		std::cout << *i << "\t";
 	std::cout << std::endl;
 	
 	std::cout << "Resize 0 with _size 5\n";
 	lst.resize(0, 8);
 	std::cout << "size =" << lst.size() << "\t";
-	for (ft::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
+	for (MODE::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
 		std::cout << *i << "\t";
 	std::cout << std::endl;
 
 	std::cout << "Resize 4 with _size 0\n";
 	lst.resize(4, 1);
 	std::cout << "size =" << lst.size() << "\t";
-	for (ft::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
+	for (MODE::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
 		std::cout << *i << "\t";
 	std::cout << std::endl;
 }
@@ -358,19 +363,19 @@ int main(int argc, const char *argv[])
 {
 	std::cout << "\nTest with reverse :\n";
 	
-	ft::list<int> lst;
+	MODE::list<int> lst;
 
 	for (int i = 1; i <= 10; ++i)
 		lst.push_back(i);
 	std::cout << "Initial value : ";
-	for (ft::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
+	for (MODE::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
 		std::cout << *i << " ";
 	std::cout << std::endl;
 
 	lst.reverse();
 
 	std::cout << "reverse lst contains:";
-	for (ft::list<int>::iterator it = lst.begin(); it != lst.end(); ++it)
+	for (MODE::list<int>::iterator it = lst.begin(); it != lst.end(); ++it)
 		std::cout << ' ' << *it;
 
 	std::cout << '\n';
@@ -379,8 +384,8 @@ int main(int argc, const char *argv[])
 {
 	std::cout << "\nTest with sort :\n";
 
-	ft::list<std::string> lst;
-	ft::list<std::string>::iterator it;
+	MODE::list<std::string> lst;
+	MODE::list<std::string>::iterator it;
 	lst.push_back ("one");
 	lst.push_back ("two");
 	lst.push_back ("Three");
@@ -389,7 +394,7 @@ int main(int argc, const char *argv[])
 	lst.push_back("fivee");
 	lst.push_back("six");
 	std::cout << "Initial value : ";
-	for (ft::list<std::string>::iterator ite = lst.begin(); ite != lst.end(); ite++)
+	for (MODE::list<std::string>::iterator ite = lst.begin(); ite != lst.end(); ite++)
 		std::cout << " " << *ite;
 	std::cout << std::endl;
 	lst.sort();
@@ -410,19 +415,19 @@ int main(int argc, const char *argv[])
 
 {
 	std::cout << "\nTest with splice\n";
-	ft::list<int>		lst1;
-	ft::list<int>		lst2;
-	ft::list<int>::iterator	ite;
+	MODE::list<int>		lst1;
+	MODE::list<int>		lst2;
+	MODE::list<int>::iterator	ite;
 
 	for (int i = 0; i < 10; i++)
 		lst1.push_back(i);
 	for (int i = 10; i < 20; i++)
 		lst2.push_back(i);
 		std::cout << "Initial value :\nlst1 : ";
-	for (ft::list<int>::iterator it = lst1.begin(); it != lst1.end(); ++it)
+	for (MODE::list<int>::iterator it = lst1.begin(); it != lst1.end(); ++it)
 		std::cout << ' ' << *it;
 	std::cout << "\nlst2 : ";
-	for (ft::list<int>::iterator it = lst2.begin(); it != lst2.end(); ++it)
+	for (MODE::list<int>::iterator it = lst2.begin(); it != lst2.end(); ++it)
 		std::cout << ' ' << *it;
 
 	ite = lst1.begin();
@@ -431,22 +436,22 @@ int main(int argc, const char *argv[])
 	ite++;
 	lst1.splice(ite, lst2);
 	std::cout << "lst1 value after splice with it point to 3 :\nlst1 : ";
-	for (ft::list<int>::iterator it = lst1.begin(); it != lst1.end(); ++it)
+	for (MODE::list<int>::iterator it = lst1.begin(); it != lst1.end(); ++it)
 		std::cout << ' ' << *it;
 	std::cout << std::endl;
 	std::cout << "lst2 value after splice :\nlst2 : ";
-	for (ft::list<int>::iterator it = lst2.begin(); it != lst2.end(); ++it)
+	for (MODE::list<int>::iterator it = lst2.begin(); it != lst2.end(); ++it)
 		std::cout << ' ' << *it;;
 	std::cout << std::endl << std::endl;
 
 	std::cout << "Splice value 3 in lst1 to lst2\n";
 	lst2.splice (lst2.begin(), lst1, ite);
 	std::cout << "lst1 value after splice with it point to 3 :\nlst1 : ";
-	for (ft::list<int>::iterator it = lst1.begin(); it != lst1.end(); ++it)
+	for (MODE::list<int>::iterator it = lst1.begin(); it != lst1.end(); ++it)
 		std::cout << ' ' << *it;
 	std::cout << std::endl;
 	std::cout << "lst2 value after splice :\nlst2 : ";
-	for (ft::list<int>::iterator it = lst2.begin(); it != lst2.end(); ++it)
+	for (MODE::list<int>::iterator it = lst2.begin(); it != lst2.end(); ++it)
 		std::cout << ' ' << *it;;
 	std::cout << std::endl << std::endl;
 
@@ -461,7 +466,7 @@ int main(int argc, const char *argv[])
 	for (int i = 0; i < 3; i++)
 		ite++;
 	std::cout << "mylist1 contains:";
-	for (ft::list<int>::iterator it = lst1.begin(); it != lst1.end(); ++it)
+	for (MODE::list<int>::iterator it = lst1.begin(); it != lst1.end(); ++it)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
 	std::cout << "Ite pointe on value " << *ite << " of lst1\n";
@@ -483,55 +488,55 @@ int main(int argc, const char *argv[])
 {
 	std::cout << "\nTest with swap\n\n";
 
-	ft::list<int> first (3,100);   // three ints with a value of 100
-	ft::list<int> second (5,200);  // five ints with a value of 200
+	MODE::list<int> first (3,100);   // three ints with a value of 100
+	MODE::list<int> second (5,200);  // five ints with a value of 200
 
 	std::cout << "First BEFORE swap : ";
-	for (ft::list<int>::iterator it=first.begin(); it!=first.end(); it++)
+	for (MODE::list<int>::iterator it=first.begin(); it!=first.end(); it++)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
 
 	std::cout << "Second BEFORE swap : ";
-	for (ft::list<int>::iterator it=second.begin(); it!=second.end(); it++)
+	for (MODE::list<int>::iterator it=second.begin(); it!=second.end(); it++)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
 	first.swap(second);
 
 	std::cout << "first AFTER swap:";
-	for (ft::list<int>::iterator it=first.begin(); it!=first.end(); it++)
+	for (MODE::list<int>::iterator it=first.begin(); it!=first.end(); it++)
 		std::cout << ' ' << *it;
 	std::cout << " size = " << first.size();
 	std::cout << '\n';
 
 	std::cout << "second AFTER swap:";
-	for (ft::list<int>::iterator it=second.begin(); it!=second.end(); it++)
+	for (MODE::list<int>::iterator it=second.begin(); it!=second.end(); it++)
 		std::cout << ' ' << *it;
 	std::cout << " size = " << second.size();
 	std::cout << '\n';
 
 	std::cout << "\nWith 2 empty list\n";
-	ft::list<int> lst1;   // three ints with a value of 100
-	ft::list<int> lst2;  // five ints with a value of 200
+	MODE::list<int> lst1;   // three ints with a value of 100
+	MODE::list<int> lst2;  // five ints with a value of 200
 
 	std::cout << "lst1 BEFORE swap : ";
-	for (ft::list<int>::iterator it=lst1.begin(); it!=lst1.end(); it++)
+	for (MODE::list<int>::iterator it=lst1.begin(); it!=lst1.end(); it++)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
 
 	std::cout << "lst2 BEFORE swap : ";
-	for (ft::list<int>::iterator it=lst2.begin(); it!=lst2.end(); it++)
+	for (MODE::list<int>::iterator it=lst2.begin(); it!=lst2.end(); it++)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
 	lst1.swap(lst2);
 
 	std::cout << "lst1 AFTER swap:";
-	for (ft::list<int>::iterator it=lst1.begin(); it!=lst1.end(); it++)
+	for (MODE::list<int>::iterator it=lst1.begin(); it!=lst1.end(); it++)
 		std::cout << ' ' << *it;
 	std::cout << " size = " << lst1.size();
 	std::cout << '\n';
 
 	std::cout << "lst2 AFTER swap:";
-	for (ft::list<int>::iterator it=lst2.begin(); it!=lst2.end(); it++)
+	for (MODE::list<int>::iterator it=lst2.begin(); it!=lst2.end(); it++)
 		std::cout << ' ' << *it;
 	std::cout << " size = " << lst2.size();
 	std::cout << '\n';
@@ -540,7 +545,7 @@ int main(int argc, const char *argv[])
 {
 	std::cout << "\nTest with unique\n\n";
 
-	ft::list<double>		lst;
+	MODE::list<double>		lst;
 
 	lst.push_back(16.54);
 	lst.push_back(16.54);
@@ -558,28 +563,31 @@ int main(int argc, const char *argv[])
 	lst.push_back(19.32);
 
 	std::cout << "Initial list value : ";
-	for (ft::list<double>::iterator it = lst.begin(); it !=lst.end(); it++)
+	for (MODE::list<double>::iterator it = lst.begin(); it !=lst.end(); it++)
 		std::cout << "|" << *it << "| ";
 	std::cout << std::endl;
 
+	lst.sort();
 	lst.unique();
 
 	std::cout <<  "List value after unique(): ";
-	for (ft::list<double>::iterator it = lst.begin(); it !=lst.end(); it++)
+	for (MODE::list<double>::iterator it = lst.begin(); it !=lst.end(); it++)
 		std::cout << "|" << *it << "| ";
 	std::cout << std::endl;
 
+	lst.sort();
 	lst.unique(same_integral_part);
 
 	std::cout <<  "List value after unique(same_integral_part): ";
-	for (ft::list<double>::iterator it = lst.begin(); it !=lst.end(); it++)
+	for (MODE::list<double>::iterator it = lst.begin(); it !=lst.end(); it++)
 		std::cout << "|" << *it << "| ";
 	std::cout << std::endl;
 
+	lst.sort();
 	lst.unique(is_near());
 
 	std::cout <<  "List value after unique(is_near()): ";
-	for (ft::list<double>::iterator it = lst.begin(); it !=lst.end(); it++)
+	for (MODE::list<double>::iterator it = lst.begin(); it !=lst.end(); it++)
 		std::cout << "|" << *it << "| ";
 	std::cout << std::endl;
 }
@@ -587,7 +595,7 @@ int main(int argc, const char *argv[])
 {
 	std::cout << "\nTest with merge :\n\n";
 
-	ft::list<double> first, second;
+	MODE::list<double> first, second;
 
 	first.push_back (3.1);
 	first.push_back (2.2);
@@ -601,13 +609,13 @@ int main(int argc, const char *argv[])
 	second.sort();
 
 	std::cout << "first contains before:";
-	for (ft::list<double>::iterator it=first.begin(); it!=first.end(); ++it)
+	for (MODE::list<double>::iterator it=first.begin(); it!=first.end(); ++it)
 		std::cout << ' ' << *it;
 	std::cout << " size = " << first.size();
 	std::cout << '\n';
 
 	std::cout << "second contains before:";
-	for (ft::list<double>::iterator it=second.begin(); it!=second.end(); ++it)
+	for (MODE::list<double>::iterator it=second.begin(); it!=second.end(); ++it)
 		std::cout << ' ' << *it;
 	std::cout << " size = " << second.size();
 	std::cout << '\n';
@@ -616,13 +624,13 @@ int main(int argc, const char *argv[])
 
 	// (second is now empty)
 	std::cout << "second contains after 1st merge:";
-	for (ft::list<double>::iterator it=second.begin(); it!=second.end(); ++it)
+	for (MODE::list<double>::iterator it=second.begin(); it!=second.end(); ++it)
 		std::cout << ' ' << *it;
 	std::cout << " size = " << second.size();
 	std::cout << '\n';
 
 	std::cout << "first contains after 1st merge:";
-	for (ft::list<double>::iterator it=first.begin(); it!=first.end(); ++it)
+	for (MODE::list<double>::iterator it=first.begin(); it!=first.end(); ++it)
 		std::cout << ' ' << *it;
 	std::cout << " size = " << first.size();
 	std::cout << '\n';
@@ -641,7 +649,7 @@ int main(int argc, const char *argv[])
 	second.sort();
 
 	std::cout << "first contains before 2nd merge:";
-	for (ft::list<double>::iterator it=first.begin(); it!=first.end(); ++it)
+	for (MODE::list<double>::iterator it=first.begin(); it!=first.end(); ++it)
 		std::cout << ' ' << *it;
 	std::cout << " size = " << first.size();
 	std::cout << '\n';
@@ -649,16 +657,16 @@ int main(int argc, const char *argv[])
 	first.merge(second,mycomparison);
 
 	std::cout << "first contains:";
-	for (ft::list<double>::iterator it=first.begin(); it!=first.end(); ++it)
+	for (MODE::list<double>::iterator it=first.begin(); it!=first.end(); ++it)
 		std::cout << ' ' << *it;
 	std::cout << '\n';
 }
 
 {
 	std::cout << "\nTest with relational operator\n\n";
-	ft::list<int> a;
-	ft::list<int> b;
-	ft::list<int> c;
+	MODE::list<int> a;
+	MODE::list<int> b;
+	MODE::list<int> c;
 
 	a.push_back(10); a.push_back(20); a.push_back(30);
 	b.push_back(10); b.push_back(20); b.push_back(30);

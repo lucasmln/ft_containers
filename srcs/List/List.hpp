@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 10:40:56 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/18 15:45:20 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/18 16:35:55 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -458,7 +458,7 @@ namespace ft
 				iterator	down = end();
 				node		*tmp = new node;
 
-				for (size_type i = 0; i <= _size / 2; i++)
+				for (size_type i = 0; i < _size / 2; i++)
 				{
 					down--;
 					tmp->_elem = *up;

@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 11:43:09 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/18 15:47:01 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/18 16:14:04 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 #include <queue>          // std::queue
 #include "../Queue.hpp"
 
+#ifndef MODE
+# define MODE ft
+#endif
+
 int main ()
 {
 {
@@ -23,11 +27,11 @@ int main ()
 		ft::list<int> mydeck(3,100);        // deque with 3 elements
 	ft::list<int> mylist(2,200);         // list with 2 elements
 
-	ft::queue<int> first;                 // empty queue
-	ft::queue<int, ft::list<int> > second(mydeck);       // queue initialized to copy of deque
+	MODE::queue<int> first;                 // empty queue
+	MODE::queue<int, ft::list<int> > second(mydeck);       // queue initialized to copy of deque
 
-	ft::queue<int, ft::list<int> > third; // empty queue with list as underlying container
-	ft::queue<int, ft::list<int> > fourth(mylist);
+	MODE::queue<int, ft::list<int> > third; // empty queue with list as underlying container
+	MODE::queue<int, ft::list<int> > fourth(mylist);
 
 	std::cout << "size of first: " << first.size() << '\n';
 	std::cout << "size of second: " << second.size() << '\n';
@@ -37,7 +41,7 @@ int main ()
 
 {
 	std::cout << "\nTest witn back() :\n";
-	ft::queue<int> myqueue;
+	MODE::queue<int> myqueue;
 
 	myqueue.push(12);
 	myqueue.push(75);   // this is now the back
@@ -49,7 +53,7 @@ int main ()
 
 {
 	std::cout << "\nTest with empty() :\n";
-	ft::queue<int> myqueue;
+	MODE::queue<int> myqueue;
 	int sum (0);
 
 	myqueue.empty() ? std::cout << "myqueue is empty\n": std::cout << "myqueue is not empty\n";
@@ -67,7 +71,7 @@ int main ()
 
 {
 	std::cout << "\nTest with front() : \n";
-	ft::queue<int> myqueue;
+	MODE::queue<int> myqueue;
 
 	myqueue.push(77);
 	myqueue.push(16);
@@ -80,7 +84,7 @@ int main ()
 {
 	std::cout << "\nTest with pop() and push() :\n";
 
-	ft::queue<int> myqueue;
+	MODE::queue<int> myqueue;
 	int myint;
 
 	std::cout << "Please enter some integers (enter 0 to end):\n";
@@ -102,7 +106,7 @@ int main ()
 {
 	std::cout << "\nTest with size() :\n";
 
-	ft::queue<int> myints;
+	MODE::queue<int> myints;
 	std::cout << "0. size: " << myints.size() << '\n';
 
 	for (int i=0; i<5; i++) myints.push(i);
@@ -116,9 +120,9 @@ int main ()
 {
 	std::cout << "\nTest with relational operator :\n";
 
-	ft::queue<int>	a;
-	ft::queue<int>	b;
-	ft::queue<int>	c;
+	MODE::queue<int>	a;
+	MODE::queue<int>	b;
+	MODE::queue<int>	c;
 
 	a.push(10); a.push(20); a.push(30);
 	b.push(10); b.push(20); b.push(30);

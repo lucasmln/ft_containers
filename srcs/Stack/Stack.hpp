@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 11:21:20 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/12 17:59:19 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/18 16:26:16 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ namespace ft
 				return (_container.empty());
 			}
 
-			value_type&			front()
+			value_type&			top()
 			{
 				return (_container.back());
 			}
 
-			const value_type&	front() const
+			const value_type&	top() const
 			{
 				return (_container.back());
 			}
