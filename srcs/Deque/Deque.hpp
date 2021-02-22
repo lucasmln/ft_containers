@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Vector.hpp                                         :+:      :+:    :+:   */
+/*   Deque.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/22 10:42:18 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/22 19:57:54 by lucas            ###   ########.fr       */
+/*   Created: 2021/02/19 15:29:07 by lucas             #+#    #+#             */
+/*   Updated: 2021/02/22 19:53:28 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_HPP
-# define VECTOR_HPP
+#ifndef DEQUE_HPP
+# define DEQUE_HPP
 
 # include <cstdlib>
 # include <cstddef>
@@ -25,7 +25,7 @@
 namespace ft
 {
 	template <typename T, class Allocator = std::allocator<T> >
-	class vector
+	class deque
 	{
 		public:
 			typedef T										value_type;
@@ -47,12 +47,25 @@ namespace ft
 			size_type	_size;
 			size_type	_size_alloc;
 
+			void				reserve(size_type n)
+			{
+				pointer		new_array;
+				
+				if (n <= _size_alloc)
+					return ;
+				new_array = _alloc.allocate(n);
+				for (size_type i = 0; i < size(); i++)
+					_alloc.construct(&new_array[i], _array[i]);
+				_alloc.destroy(_array);
+				_size_alloc = n;
+				_array = new_array;
+			}
 
 		public:
 			//default
-			vector(const allocator_type& alloc = allocator_type()): _alloc(alloc), _array(NULL), _size(0), _size_alloc(0) {}
+			deque(const allocator_type& alloc = allocator_type()): _alloc(alloc), _array(NULL), _size(0), _size_alloc(0) {}
 			//fill
-			explicit vector(size_type n, const value_type &value = value_type(),
+			explicit deque(size_type n, const value_type &value = value_type(),
 			const allocator_type& alloc = allocator_type()):
 			_alloc(alloc), _array(NULL), _size(0), _size_alloc(0)
 			{
@@ -60,14 +73,14 @@ namespace ft
 					push_back(value);
 			}
 			//copy
-			vector(const vector& x): _alloc(x._alloc), _array(NULL), _size(0), _size_alloc(0)
+			deque(const deque& x): _alloc(x._alloc), _array(NULL), _size(0), _size_alloc(0)
 			{
-				for (size_type i = 0; i < x.capacity(); i++)
+				for (size_type i = 0; i < x.size(); i++)
 					push_back(x[i]);
 			}
 			//range
 			template <class InputIt>
-				vector (InputIt first, InputIt last,
+				deque (InputIt first, InputIt last,
 				const allocator_type& alloc = allocator_type(),
 				typename InputIt::difference_type * = nullptr):
 				_alloc(alloc), _array(NULL), _size(0), _size_alloc(0)
@@ -79,9 +92,10 @@ namespace ft
 					}
 				}
 			//destructor
-			~vector()
+			~deque()
 			{
 				_alloc.destroy(_array);
+				_size = 0;
 			}
 
 			template <class InputIt>
@@ -139,11 +153,6 @@ namespace ft
 			const_iterator		begin() const
 			{
 				return (iterator(_array));
-			}
-
-			size_type			capacity() const
-			{
-				return (_size_alloc);
 			}
 
 			void				clear()
@@ -279,12 +288,32 @@ namespace ft
 				_size--;
 			}
 
+			void				pop_front()
+			{
+				if (_size <= 0)
+					return ;
+				for (iterator it = begin(), next = begin() + 1; next != end(); next++, it++)
+				{
+					*it = *next;
+					*next = value_type();
+				}
+				_size--;
+			}
+
 			void				push_back(const_reference val)
 			{
-				if (_size == _size_alloc)
+				if (_size == _size_alloc -1 || _size_alloc == 0)
 					reserve((_size_alloc == 0 ? 1 : _size_alloc) * 2);
 				_alloc.construct(&_array[_size], val);
 				_size++;
+			}
+
+			void				push_front(const_reference val)
+			{
+				if (_size <= 0)
+					assign(1, val);
+				else
+					insert(begin(), val);
 			}
 
 			reverse_iterator	rbegin()
@@ -307,21 +336,6 @@ namespace ft
 				return (const_reverse_iterator(_array));
 			}
 
-			void				reserve(size_type n)
-			{
-				pointer		new_array;
-				
-				if (n <= _size_alloc)
-					return ;
-				new_array = _alloc.allocate(n);
-				for (size_type i = 0; i < size(); i++)
-					_alloc.construct(&new_array[i], _array[i]);
-				_alloc.destroy(_array);
-				_alloc.deallocate(_array, _size_alloc);
-				_size_alloc = n;
-				_array = new_array;
-			}
-
 			void				resize(size_type n, value_type val = value_type())
 			{
 				if (n > _size)
@@ -338,7 +352,7 @@ namespace ft
 				return (_size);
 			}
 
-			void				swap(vector& x)
+			void				swap(deque& x)
 			{
 				std::swap(x._array, this->_array);
 				std::swap(x._size, this->_size);
@@ -369,16 +383,16 @@ namespace ft
 				std::stringstream	ss;;
 
 				ss << "trying to access index " << i <<
-					" in vector of size_alloc " << _size_alloc << std::endl;
+					" in deque of size_alloc " << _size_alloc << std::endl;
 				return (std::out_of_range(ss.str()));
 			}
 	};
 	template <class T, class Alloc>
-	bool		operator==(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	bool		operator==(const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs)
 	{
 		if (lhs.size() != rhs.size())
 			return (false);
-		for (typename ft::vector<T>::iterator l = lhs.begin(), r = rhs.begin();
+		for (typename ft::deque<T>::iterator l = lhs.begin(), r = rhs.begin();
 												l != lhs.end() ; l++, r++)
 			if (*l != *r)
 				return (false);
@@ -386,17 +400,17 @@ namespace ft
 	}
 
 	template <class T, class Alloc>
-	bool		operator!=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	bool		operator!=(const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs)
 	{
 		return (!(lhs == rhs));
 	}
 
 	template <class T, class Alloc>
-	bool		operator<(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	bool		operator<(const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs)
 	{
 		if (lhs == rhs)
 			return (false);
-		for (typename ft::vector<T>::iterator l = lhs.begin(), r = rhs.begin();
+		for (typename ft::deque<T>::iterator l = lhs.begin(), r = rhs.begin();
 													l != lhs.end(); l++, r++)
 		{
 			if (*l < *r)
@@ -408,13 +422,13 @@ namespace ft
 	}
 
 	template <class T, class Alloc>
-	bool		operator>(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	bool		operator>(const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs)
 	{
 		return (rhs < lhs);
 	}
 
 	template <class T, class Alloc>
-	bool		operator<=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	bool		operator<=(const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs)
 	{
 		if (lhs == rhs)
 			return (true);
@@ -422,13 +436,13 @@ namespace ft
 	}
 
 	template <class T, class Alloc>
-	bool		operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
+	bool		operator>=(const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs)
 	{
 		return (!(lhs < rhs));
 	}
 
 	template <class T, class Alloc>
-	void		swap(vector<T,Alloc>& x, vector<T,Alloc>& y)
+	void		swap(deque<T,Alloc>& x, deque<T,Alloc>& y)
 	{
 		x.swap(y);
 	}

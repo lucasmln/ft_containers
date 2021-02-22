@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Iterator.hpp                                       :+:      :+:    :+:   */
+/*   ReverseIterator.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/26 16:38:22 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/19 16:40:43 by lucas            ###   ########.fr       */
+/*   Created: 2021/01/26 16:32:37 by lucas             #+#    #+#             */
+/*   Updated: 2021/02/01 18:02:34 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ITERATOR_HPP
-# define ITERATOR_HPP
+#ifndef REVERSEITERATOR_HPP
+# define REVERSEITERATOR_HPP
 
 # include <cstdlib>
 # include <cstddef>
@@ -23,7 +23,7 @@
 namespace ft
 {
 	template <typename T>
-	class Iterator
+	class ReverseIterator
 	{
 		public:
 			typedef std::random_access_iterator_tag		iterator_category;
@@ -36,21 +36,21 @@ namespace ft
 
 		private:
 			pointer						_ptr;
-			typedef Iterator			self;
+			typedef ReverseIterator			self;
 
 		public:
-			Iterator() {}
+			ReverseIterator() {}
 
-			Iterator(pointer other): _ptr(other) {}
+			ReverseIterator(pointer other): _ptr(other) {}
 
-			Iterator(Iterator *other)
+			ReverseIterator(ReverseIterator *other)
 			{
 				this->_ptr = other->_ptr;
 			}
 
-			~Iterator() {}
+			~ReverseIterator() {}
 
-			Iterator		&operator=(self const &it)
+			reference		operator=(self const &it)
 			{
 				_ptr = it._ptr;
 				return (*this);
@@ -59,7 +59,7 @@ namespace ft
 			// INCREMENTERS
 			self			operator++()
 			{
-				++_ptr;
+				--_ptr;
 				return (*this);
 			}
 
@@ -67,19 +67,19 @@ namespace ft
 			{
 				self		it = *this;
 
-				++_ptr;
+				--_ptr;
 				return (it);
 			}
 
 			self			operator+=(size_type nb)
 			{
-				_ptr += nb;
+				_ptr -= nb;
 				return (*this);
 			}
 
 			self			operator--()
 			{
-				--_ptr;
+				++_ptr;
 				return (*this);
 			}
 
@@ -87,35 +87,35 @@ namespace ft
 			{
 				self		it = *this;
 
-				--_ptr;
+				++_ptr;
 				return (it);
 			}
 
 			self			operator-=(size_type nb)
 			{
-				_ptr -= nb;
+				_ptr += nb;
 				return (*this);
 			}
 
 			// ARITHMETICS
 			self			operator+(difference_type n)
 			{
-				return (_ptr + n);
+				return (_ptr - n);
 			}
 
 			self			operator-(difference_type n)
 			{
-				return (_ptr - n);
+				return (_ptr + n);
 			}
 
 			self			operator+(self &other)
 			{
-				return (_ptr + other._ptr);
+				return (_ptr - other._ptr);
 			}
 
 			self			operator-(self &other)
 			{
-				return (_ptr - other._ptr);
+				return (_ptr + other._ptr);
 			}
 
 			// BOOLEANS

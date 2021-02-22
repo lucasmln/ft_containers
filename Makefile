@@ -6,7 +6,7 @@
 #    By: lucas <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/18 15:54:28 by lucas             #+#    #+#              #
-#    Updated: 2021/02/18 16:53:47 by lucas            ###   ########.fr        #
+#    Updated: 2021/02/22 19:51:03 by lucas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,7 @@ vector:
 				$(CC) $(FLAGS) $(STD) srcs/Vector/test/main_vector.cpp -o vector
 				./vector > result_std
 				rm ./vector
-				rm result_diff
-				diff result_ft result_std > result_diff
+				diff -s result_ft result_std > result_diff
 
 list:
 				$(CC) $(FLAGS) $(FT) srcs/List/test/main_list.cpp -o list
@@ -66,5 +65,13 @@ queue:
 				rm  queue
 				diff -s result_ft result_std > result_diff
 
+deque:
+				$(CC) $(FLAGS) $(FT) srcs/Deque/test/main_deque.cpp -o deque
+				./deque > result_ft
+				rm  deque
+				$(CC) $(FLAGS) $(STD) srcs/Deque/test/main_deque.cpp -o deque
+				./deque > result_std
+				rm  deque
+				diff -s result_ft result_std > result_diff
 clean:
 				rm result*
