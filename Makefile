@@ -6,7 +6,7 @@
 #    By: lucas <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/18 15:54:28 by lucas             #+#    #+#              #
-#    Updated: 2021/02/22 19:51:03 by lucas            ###   ########.fr        #
+#    Updated: 2021/02/24 20:15:17 by lucas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,14 @@ map:
 				rm  map
 				diff -s result_ft result_std > result_diff
 
+multimap:
+				$(CC) $(FLAGS) $(FT_PAIR) $(FT) srcs/Multimap/test/main_multimap.cpp -o multimap
+				./multimap	> result_ft
+				rm  multimap
+				$(CC) $(FLAGS) $(STD_PAIR) $(STD) srcs/Multimap/test/main_multimap.cpp -o multimap
+				./multimap	> result_std
+				rm  multimap
+				diff -s result_ft result_std > result_diff
 stack:
 				$(CC) $(FLAGS) $(FT) srcs/Stack/test/main_stack.cpp -o stack
 				./stack > result_ft
