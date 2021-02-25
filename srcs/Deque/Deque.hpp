@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 15:29:07 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/22 19:53:28 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/25 19:41:25 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <cstdlib>
 # include <cstddef>
 # include <memory>
-# include <limits>
+# include <climits>
 # include <sstream>
 # include <iostream>
 # include "./includes/ReverseIterator.hpp"
@@ -82,7 +82,7 @@ namespace ft
 			template <class InputIt>
 				deque (InputIt first, InputIt last,
 				const allocator_type& alloc = allocator_type(),
-				typename InputIt::difference_type * = nullptr):
+				typename InputIt::difference_type * = NULL):
 				_alloc(alloc), _array(NULL), _size(0), _size_alloc(0)
 				{
 					while (first != last)
@@ -100,7 +100,7 @@ namespace ft
 
 			template <class InputIt>
 			void				assign(InputIt first, InputIt last,
-				typename InputIt::difference_type * = nullptr) // range
+				typename InputIt::difference_type * = NULL) // range
 			{
 				for (size_type i = 0; i < _size; i++)
 					_alloc.destroy(&_array[i]);
@@ -254,7 +254,7 @@ namespace ft
 
 			template <class InputIt>
 			void insert			(iterator position, InputIt first, InputIt last,
-				typename InputIt::difference_type * = nullptr) // range
+				typename InputIt::difference_type * = NULL) // range
 			{
 				size_type		nb = 0;
 				size_type		pos = 0;
@@ -279,7 +279,7 @@ namespace ft
 
 			size_type			max_size(void) const
 			{
-				return (SIZE_T_MAX / sizeof(value_type));
+				return (ULONG_MAX / sizeof(value_type));
 			}
 
 			void				pop_back()

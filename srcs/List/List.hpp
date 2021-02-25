@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 10:40:56 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/18 16:35:55 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/25 19:42:04 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIST_HPP
 
 # include <memory>
+# include <climits>
 # include "./includes/node.hpp"
 # include "./includes/Bidirectional_iterator.hpp"
 # include "./includes/Reverse_Bidirectional_iterator.hpp"
@@ -93,7 +94,7 @@ namespace ft
 			template <class InputIt>
 			list(InputIt first, InputIt last,
 				const allocator_type& alloc = allocator_type(),
-								typename InputIt::difference_type * = nullptr)
+								typename InputIt::difference_type * = NULL)
 			{
 				_alloc = alloc;
 				init();
@@ -130,7 +131,7 @@ namespace ft
 
 			template <class InputIt>
 			void				assign(InputIt first, InputIt last,
-								typename InputIt::difference_type * = nullptr)
+								typename InputIt::difference_type * = NULL)
 			{
 				clear();
 				while (first != last)
@@ -270,7 +271,7 @@ namespace ft
 
 			template <class InputIt>
 			void					insert(iterator position, InputIt first,
-						InputIt last, typename InputIt::difference_type * = nullptr)
+						InputIt last, typename InputIt::difference_type * = NULL)
 			{
 				while (first != last)
 				{
@@ -281,7 +282,7 @@ namespace ft
 
 			size_type				max_size() const
 			{
-				return (SIZE_T_MAX / sizeof(node));
+				return (ULONG_MAX / sizeof(node));
 			}
 
 			void					merge(list& x)

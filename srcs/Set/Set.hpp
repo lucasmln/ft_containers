@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:20:30 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/25 19:17:29 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/25 19:43:13 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <utility>
 # include <iostream>
+# include <climits>
 # include "./includes/SetNode.hpp"
 # include "./includes/Set_bidirectional_iterator.hpp"
 # include "./includes/Set_reverse_bidirectional_iterator.hpp"
@@ -89,7 +90,7 @@ namespace ft
 				while (node->left)
 					node = node->left;
 				_lower = node;
-				node->left = nullptr;
+				node->left = NULL;
 			}
 
 			SetNode		*find_node(key_type key) const
@@ -99,7 +100,7 @@ namespace ft
 
 				val = key;
 				if (_size == 0)
-					return (nullptr);
+					return (NULL);
 				while (true)
 				{
 					if (tmp->elem == val)
@@ -119,7 +120,7 @@ namespace ft
 							break;
 					}
 				}
-				return (nullptr);
+				return (NULL);
 			}
 
 			void		erase_leaf(SetNode *leaf)
@@ -127,25 +128,25 @@ namespace ft
 				if (_size == 1)
 				{
 					delete leaf;
-					leaf = nullptr;
-					_top = nullptr;
+					leaf = NULL;
+					_top = NULL;
 					delete _upper;
-					_upper = nullptr;
-					_lower = nullptr;
+					_upper = NULL;
+					_lower = NULL;
 					_size = 0;
 					return ;
 				}
 				if (leaf->parent && value_comp()(leaf->elem, leaf->parent->elem))
-					leaf->parent->left = nullptr;
+					leaf->parent->left = NULL;
 				else
 				{
 					if (leaf->right == _upper)
 						leaf->parent->right = _upper;
 					else
-						leaf->parent->right = nullptr;
+						leaf->parent->right = NULL;
 				}
 				delete leaf;
-				leaf = nullptr;
+				leaf = NULL;
 				set_upper();
 				set_lower();
 				_size--;
@@ -162,7 +163,7 @@ namespace ft
 					if (_top == single)
 					{
 						_top = single->left;
-						single->left->parent = nullptr;
+						single->left->parent = NULL;
 					}
 					else
 						single->left->parent = single->parent;
@@ -178,7 +179,7 @@ namespace ft
 						_top = single->right;
 				}
 				delete single;
-				single = nullptr;
+				single = NULL;
 				set_upper();
 				set_lower();
 				_size--;
@@ -199,11 +200,11 @@ namespace ft
 					else
 						node->parent->right = near;
 					near->parent = node->parent;
-					node->parent = nullptr;
+					node->parent = NULL;
 				}
 				near->right = node->right;
 				near->right->parent = near;
-				node->right = nullptr;
+				node->right = NULL;
 				if (near->parent->elem != node->elem)
 				{
 					if (near->left)
@@ -218,10 +219,10 @@ namespace ft
 				if (node == _top)
 				{
 					_top = near;
-					near->parent = nullptr;
+					near->parent = NULL;
 				}
 				delete node;
-				node = nullptr;
+				node = NULL;
 				_size--;
 			}
 
@@ -229,9 +230,9 @@ namespace ft
 			explicit set(const key_compare &comp = key_compare())
 			{
 				_comp = comp;
-				_lower = nullptr;
-				_upper = nullptr;
-				_top = nullptr;
+				_lower = NULL;
+				_upper = NULL;
+				_top = NULL;
 				_size = 0;
 			}
 
@@ -354,12 +355,12 @@ namespace ft
 			Pair<iterator,bool>		insert(const value_type& val)
 			{
 				SetNode		*node = _top;
-				SetNode		*create = nullptr;
+				SetNode		*create = NULL;
 
 				if (_size == 0)
 				{
 					_top = new SetNode;
-					_top->parent = nullptr;
+					_top->parent = NULL;
 					_top->elem = val;
 					_lower = _top;
 					_upper = new SetNode;
@@ -449,7 +450,7 @@ namespace ft
 
 			size_type		max_size() const
 			{
-				return (SIZE_T_MAX / sizeof(SetNode));
+				return (ULONG_MAX / sizeof(SetNode));
 			}
 
 			reverse_iterator		rbegin()
