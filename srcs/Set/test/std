@@ -1,0 +1,119 @@
+Test with insert :
+
+Add ten pair to set :
+{a/1} {a/2} {a/3} {a/4} {a/5} {a/6} {a/7} {a/8} {a/9} {a/10} size 10
+
+{1/1} {2/2} {3/3} {4/4} {5/5} {6/6} {7/7} {8/8} {9/9} {10/10} size 10
+
+Add values in test2 with range iterator start to the fourth value of test :
+{4/4} {5/5} {6/6} {7/7} {8/8} {9/9} {10/10} size 7
+
+Add three first values of test in test2 with hint :
+{1/1} {2/2} {3/3} {4/4} {5/5} {6/6} {7/7} {8/8} {9/9} {10/10} size 10
+
+Test with insert :
+
+Add eleven pair to set and key value 'z' :
+
+{z/1} {h/2} {m/3} {e/4} {g/5} {f/6} {n/7} {c/8} {s/9} {x/10} {d/11} 
+{c/c} {d/d} {e/e} {f/f} {g/g} {h/h} {m/m} {n/n} {s/s} {x/x} {z/z} size 11
+Erase node with one child at head. Value 'z'
+{c/c} {d/d} {e/e} {f/f} {g/g} {h/h} {m/m} {n/n} {s/s} {x/x} size 10
+Erase leaf (No children) value 'd'
+{c/c} {e/e} {f/f} {g/g} {h/h} {m/m} {n/n} {s/s} {x/x} size 9
+Erase node with 2 children value 'e'
+{c/c} {f/f} {g/g} {h/h} {m/m} {n/n} {s/s} {x/x} size 8
+Erase begin() value 'c'
+{f/f} {g/g} {h/h} {m/m} {n/n} {s/s} {x/x} size 7
+Erase begin() +2(inclus) to end() -1(exclu) value. h to n
+{f/f} {g/g} {n/n} {s/s} {x/x} size 5
+Erase begin() to end() value. f to x(include)
+size 0
+{z/1} {h/2} {m/3} {e/4} {g/5} {f/6} {n/7} {c/8} {s/9} {x/10} {d/11} 
+Reinsert the initial set value after erase all
+{c/c} {d/d} {e/e} {f/f} {g/g} {h/h} {m/m} {n/n} {s/s} {x/x} {z/z} size 11
+
+
+Test with clear() :
+
+{z/1} {h/2} {m/3} {e/4} {g/5} {f/6} {n/7} {c/8} {s/9} {x/10} {d/11} 
+Value in order :
+{99/99} {100/100} {101/101} {102/102} {103/103} {104/104} {109/109} {110/110} {115/115} {120/120} {122/122} size 11
+Clear the set, print value and size
+size 0
+{z/1} {h/2} {m/3} {e/4} {g/5} {f/6} {n/7} {c/8} {s/9} {x/10} {d/11} 
+Reinsert the initial set value after erase all
+{99/99} {100/100} {101/101} {102/102} {103/103} {104/104} {109/109} {110/110} {115/115} {120/120} {122/122} size 11
+
+
+Test with count :
+
+{99/99} {100/100} {101/101} {102/102} {103/103} {104/104} {109/109} {110/110} {115/115} {120/120} {122/122} size 11
+g is in the set
+- is not in the set
+4 is not in the set
+z is in the set
+c is in the set
+
+
+Test with lower_bound, upper_bound, equal_rabge :
+
+Value in set :
+{-30/-30} {10/10} {20/20} {40/40} {80/80} {200/200} size 6
+upper_bound('d') is 200 lower_bound('b') is 200
+Erased values between iterator return by lower/upper_bound
+{-30/-30} {10/10} {20/20} {40/40} {80/80} {200/200} size 6
+
+Test with equal_rang :
+
+{10/10} {20/20} {30/30} {300/300} size 4
+equal_range('b')
+first iterator point to: 300 => 300
+second iterator point to: 300 => 300
+
+Test with max_size :
+Max_size : 576460752303423487
+
+Test with operator = :
+print test :
+{-65/-65} {13/13} {15/15} {18/18} {98/98} {150/150} size 6
+print test2 :
+size 0
+Use tes2 = test && tes.clear() :
+print test :
+size 0
+print test2 :
+{-65/-65} {13/13} {15/15} {18/18} {98/98} {150/150} size 6
+before swap FOO contains:
+100 => 100
+200 => 200
+300 => 300
+before swap BAR contains:
+10 => 10
+20 => 20
+30 => 30
+40 => 40
+50 => 50
+after swap FOO contains:
+10 => 10
+20 => 20
+30 => 30
+40 => 40
+50 => 50
+after swap BAR contains:
+100 => 100
+200 => 200
+300 => 300
+
+Test with relational operators :
+
+FOO contains:
+100 => 100
+200 => 200
+300 => 300
+BAR contains:
+10 => 10
+20 => 20
+30 => 30
+40 => 40
+50 => 50

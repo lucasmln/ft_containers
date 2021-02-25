@@ -6,7 +6,7 @@
 #    By: lucas <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/18 15:54:28 by lucas             #+#    #+#              #
-#    Updated: 2021/02/25 19:47:50 by lucas            ###   ########.fr        #
+#    Updated: 2021/02/25 19:54:42 by lucas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,5 +81,15 @@ deque:
 				./deque > result_ft
 				rm  deque
 				diff -s result_ft result_std > result_diff
+
+set:
+				$(CC) $(FLAGS) $(STD) $(STD_PAIR) srcs/Set/test/main_set.cpp -o set
+				./set > result_std
+				rm  set
+				$(CC) $(FLAGS) $(FT) $(FT_PAIR) srcs/Set/test/main_set.cpp -o set
+				./set > result_ft
+				rm  set
+				diff -s result_ft result_std > result_diff
+
 clean:
 				rm result*
