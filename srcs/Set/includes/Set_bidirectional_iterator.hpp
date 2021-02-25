@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:52:56 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/25 18:53:00 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/25 19:45:15 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ namespace ft
 
 		public:
 
-		SetIterator(): _ptr(nullptr) {}
+		SetIterator(): _ptr(NULL) {}
 
 		SetIterator(node *elem): _ptr(elem) {}
 

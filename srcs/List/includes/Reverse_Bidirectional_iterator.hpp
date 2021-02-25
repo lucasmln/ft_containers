@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 11:11:21 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/18 15:45:52 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/25 19:44:30 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ namespace ft
 			typedef Reverse_Bidirectional_iterator		Bi_iterator;
 
 		public:
-			Reverse_Bidirectional_iterator():_ptr(nullptr) {}
+			Reverse_Bidirectional_iterator():_ptr(NULL) {}
 
 			Reverse_Bidirectional_iterator(value_node *elem): _ptr(elem) {}
 

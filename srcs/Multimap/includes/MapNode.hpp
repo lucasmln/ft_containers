@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 16:12:42 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/17 15:04:57 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/25 19:45:03 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ namespace ft
 			MapNode(value_type const &val = value_type())
 			{
 				elem = val;
-				parent = nullptr;
-				right = nullptr;
-				left = nullptr;
+				parent = NULL;
+				right = NULL;
+				left = NULL;
 			}
 
 			MapNode(value_type const &val, MapNode *depend)
 			{
 				elem = val;
 				parent = depend;
-				right = nullptr;
-				left = nullptr;
+				right = NULL;
+				left = NULL;
 			}
 
 			MapNode(MapNode const &other)

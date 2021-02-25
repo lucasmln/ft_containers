@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 18:37:17 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/03 19:36:58 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/25 19:44:20 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ namespace ft
 
 		public:
 			node(const value_type &val = value_type()):
-			_next(nullptr), _before(nullptr), _elem(val) {}
+			_next(NULL), _before(NULL), _elem(val) {}
 
 			node(node *nxt, node *bfr, const value_type &val):
 			_next(nxt), _before(bfr), _elem(val) {}

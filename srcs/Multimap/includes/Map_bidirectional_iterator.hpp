@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 11:17:40 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/24 19:46:09 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/25 19:44:54 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ namespace ft
 
 		public:
 
-		MapIterator(): _ptr(nullptr) {}
+		MapIterator(): _ptr(NULL) {}
 
 		MapIterator(node *elem): _ptr(elem) {}
 

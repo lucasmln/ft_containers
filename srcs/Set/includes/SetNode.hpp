@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 18:52:45 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/25 19:20:16 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/25 19:45:24 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ namespace ft
 			SetNode(value_type const &val = value_type())
 			{
 				elem = val;
-				parent = nullptr;
-				right = nullptr;
-				left = nullptr;
+				parent = NULL;
+				right = NULL;
+				left = NULL;
 			}
 
 			SetNode(value_type const &val, SetNode *depend)
 			{
 				elem = val;
 				parent = depend;
-				right = nullptr;
-				left = nullptr;
+				right = NULL;
+				left = NULL;
 			}
 
 			SetNode(SetNode const &other)

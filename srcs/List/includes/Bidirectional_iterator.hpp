@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 11:25:36 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/18 15:45:56 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/25 19:44:26 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ namespace ft
 			typedef Bidirectional_iterator		Bi_iterator;
 
 		public:
-			Bidirectional_iterator():_ptr(nullptr) {}
+			Bidirectional_iterator():_ptr(NULL) {}
 
 			Bidirectional_iterator(value_node *elem): _ptr(elem) {}
 
