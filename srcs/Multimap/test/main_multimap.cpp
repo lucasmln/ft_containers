@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:13:09 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/24 20:07:21 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/25 16:37:30 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int main ()
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test2.size() << std::endl;
 }
-/*
+
 {
 	MODE::multimap<char, int>				test;
 	MODE::multimap<char, int>				test2;
@@ -106,7 +106,7 @@ int main ()
 	std::cout << "\nTest with insert :\n\n";
 	std::cout << "Add eleven pair to multimap and key value 'z' :\n";
 
-//	system("cat srcs/Map/test/tree.txt");
+//	system("cat srcs/Multimap/test/tree.txt");
 	std::cout << std::endl;
 	for (int i = 0; i < 11; i++)
 	{
@@ -366,7 +366,7 @@ int main ()
 		std::cout  << "{" << it->first << "/" << it->second << "}" << " ";
 	std::cout << "size " << test2.size() << std::endl;
 }
-*/
+
 /*
 {
 	std::multimap<char,int> foo,bar;
@@ -397,7 +397,7 @@ int main ()
 		std::cout << it->first << " => " << it->second << '\n';
 }
 */
-/*
+
 {
 	std::cout << "\nTest with relational operators :\n\n";
 	MODE::multimap<char,int> foo,bar;
@@ -432,6 +432,6 @@ int main ()
 	if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
 
 }
-*/
+
 	return 0;
 }
