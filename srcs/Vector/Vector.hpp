@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 10:42:18 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/25 19:37:43 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/25 19:39:39 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,7 +270,7 @@ namespace ft
 
 			size_type			max_size(void) const
 			{
-				return (SIZE_T_MAX / sizeof(value_type));
+				return (ULONG_MAX / sizeof(value_type));
 			}
 
 			void				pop_back()
