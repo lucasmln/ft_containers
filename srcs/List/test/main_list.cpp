@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 12:15:46 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/26 12:37:20 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/26 12:38:37 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,14 +185,14 @@ int main(int argc, const char *argv[])
 	std::cout << std::endl;
 
 	std::cout << "Erase value 0 to 4\n";
-/*	MODE::list<int>::iterator ite = lst.begin();
+	MODE::list<int>::iterator ite = lst.begin();
 	for (int i = 0; i < 5; i++)
 		ite++;
 	lst.erase(lst.begin(), ite);
 	for (MODE::list<int>::iterator ite = lst.begin(); ite != lst.end(); ite++)
 		std::cout << *ite << " ";
 	std::cout << std::endl;
-*/}
+}
 
 {
 	std::cout << "\nInsert test\n";
