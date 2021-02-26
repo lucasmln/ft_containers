@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 12:15:46 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/18 16:42:18 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/26 12:37:20 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,22 +145,26 @@ int main(int argc, const char *argv[])
 	std::cout << "Assign two value of 600 with iterator\n";
 	lst.assign(start, end);
 	for (MODE::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
+		std::cout << *it << " ";
+	std::cout << std::endl;
 
 	std::cout << "Assign eight value of 90 with size\n";
 	lst.assign(8, 90);
 	for (MODE::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
+		std::cout << *it << " ";
+	std::cout << std::endl;
 
 	std::cout << "\nCreate list with iterator\n";
 	MODE::list<int>	with_it(start, end);
 	for (MODE::list<int>::iterator it = with_it.begin(); it != with_it.end(); it++)
-		std::cout << *it << std::endl;
+		std::cout << *it << " ";
+	std::cout << std::endl;
 
 	std::cout << "\nCreate list with copy of lst\n";
 	MODE::list<int>	copy(lst);
 	for (MODE::list<int>::iterator it = copy.begin(); it != copy.end(); it++)
-		std::cout << *it << std::endl;
+		std::cout << *it << " ";
+	std::cout << std::endl;
 }
 
 {
@@ -177,16 +181,18 @@ int main(int argc, const char *argv[])
 	std::cout << "Erase the value " << *it << std::endl;
 	lst.erase(it);
 	for (MODE::list<int>::iterator ite = lst.begin(); ite != lst.end(); ite++)
-		std::cout << *ite << std::endl;
+		std::cout << *ite << " ";
+	std::cout << std::endl;
 
 	std::cout << "Erase value 0 to 4\n";
-	MODE::list<int>::iterator ite = lst.begin();
+/*	MODE::list<int>::iterator ite = lst.begin();
 	for (int i = 0; i < 5; i++)
 		ite++;
 	lst.erase(lst.begin(), ite);
 	for (MODE::list<int>::iterator ite = lst.begin(); ite != lst.end(); ite++)
-		std::cout << *ite << std::endl;
-}
+		std::cout << *ite << " ";
+	std::cout << std::endl;
+*/}
 
 {
 	std::cout << "\nInsert test\n";
