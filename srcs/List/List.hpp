@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 10:40:56 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/25 19:42:04 by lucas            ###   ########.fr       */
+/*   Updated: 2021/02/26 12:41:09 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,10 +224,13 @@ namespace ft
 
 			iterator				erase(iterator first, iterator last)
 			{
+				iterator	tmp = first;
+
 				while (first != last)
 				{
+					tmp++;
 					erase(first);
-					first++;
+					first = tmp;
 				}
 				return (first);
 			}
