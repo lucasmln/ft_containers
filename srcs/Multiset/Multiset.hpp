@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Set.hpp                                            :+:      :+:    :+:   */
+/*   Multiset.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/25 18:20:30 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/26 12:15:42 by lucas            ###   ########.fr       */
+/*   Created: 2021/02/25 20:05:20 by lucas             #+#    #+#             */
+/*   Updated: 2021/02/26 12:13:57 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SET_HPP
-# define SET_HPP
+#ifndef MULTISET_HPP
+# define MULTISET_HPP
 
 # include <utility>
 # include <iostream>
@@ -24,7 +24,7 @@ namespace ft
 {
 
 	template < class T, class Compare = std::less<T> >
-	class set
+	class multiset
 	{
 		public :
 			typedef T									key_type;
@@ -56,7 +56,7 @@ namespace ft
 					{
 						this->comp = c;
 					}
-					friend class set;
+					friend class multiset;
 			};
 
 		private :
@@ -68,7 +68,7 @@ namespace ft
 			size_type			_size;
 
 
-			void		set_upper()
+			void		multiset_upper()
 			{
 				SetNode		*node = _top;
 
@@ -83,7 +83,7 @@ namespace ft
 				_upper->parent = node;
 			}
 
-			void		set_lower()
+			void		multiset_lower()
 			{
 				SetNode		*node = _top;
 
@@ -147,8 +147,8 @@ namespace ft
 				}
 				delete leaf;
 				leaf = NULL;
-				set_upper();
-				set_lower();
+				multiset_upper();
+				multiset_lower();
 				_size--;
 			}
 
@@ -180,8 +180,8 @@ namespace ft
 				}
 				delete single;
 				single = NULL;
-				set_upper();
-				set_lower();
+				multiset_upper();
+				multiset_lower();
 				_size--;
 			}
 
@@ -227,7 +227,7 @@ namespace ft
 			}
 
 		public :
-			explicit set(const key_compare &comp = key_compare())
+			explicit multiset(const key_compare &comp = key_compare())
 			{
 				_comp = comp;
 				_lower = NULL;
@@ -236,7 +236,7 @@ namespace ft
 				_size = 0;
 			}
 
-			set(const set& x)
+			multiset(const multiset& x)
 			{
 				_size = x._size;
 				_comp = x._comp;
@@ -245,7 +245,7 @@ namespace ft
 				_top = new SetNode(x._top);
 			}
 
-			~set()
+			~multiset()
 			{
 				clear();
 			}
@@ -371,9 +371,11 @@ namespace ft
 				}
 				while (true)
 				{
-					if (node->elem == val)
+				/*	if (node->elem == val)
+					{
 						return (make_pair(iterator(node), false));
-					if (value_comp()(val, node->elem))
+					}
+				*/	if (value_comp()(val, node->elem))
 					{
 						if (node->left)
 							node = node->left;
@@ -410,7 +412,7 @@ namespace ft
 						}
 					}
 				}
-				set_lower();
+				multiset_lower();
 				_size++;
 				return (make_pair(iterator(create), true));
 			}
@@ -478,9 +480,9 @@ namespace ft
 				return (_size);
 			}
 
-			void			swap(set& x)
+			void			swap(multiset& x)
 			{
-				set<key_type>	tmp = x;
+				multiset<key_type>	tmp = x;
 
 				x = *this;
 				*this = tmp;
@@ -502,7 +504,7 @@ namespace ft
 				return (comparator(this->_comp));
 			}
 
-			set				&operator=(const set& x)
+			multiset				&operator=(const multiset& x)
 			{
 				clear();
 				insert(x.begin(), x.end());
@@ -511,12 +513,12 @@ namespace ft
 	};
 
 template <class T, class Compare>
-bool		operator==(const set<T, Compare>& lhs,
-			const set<T, Compare>& rhs)
+bool		operator==(const multiset<T, Compare>& lhs,
+			const multiset<T, Compare>& rhs)
 {
 	if (lhs.size() != rhs.size())
 		return (false);
-	for (typename set<T, Compare>::iterator l = lhs.begin(), r = rhs.begin();
+	for (typename multiset<T, Compare>::iterator l = lhs.begin(), r = rhs.begin();
 		l != lhs.end(); l++, r++)
 	{
 		if (*l != *r)
@@ -526,17 +528,17 @@ bool		operator==(const set<T, Compare>& lhs,
 }
 
 template <class T, class Compare>
-bool		operator!=(const set<T, Compare> &lhs,
-			const set<T, Compare> &rhs)
+bool		operator!=(const multiset<T, Compare> &lhs,
+			const multiset<T, Compare> &rhs)
 {
 	return (!(lhs  == rhs));
 }
 
 template <class T, class Compare>
-bool		operator<(const set<T, Compare> &lhs,
-			const set<T, Compare> &rhs)
+bool		operator<(const multiset<T, Compare> &lhs,
+			const multiset<T, Compare> &rhs)
 {
-	for (typename set<T, Compare>::iterator l = lhs.begin(), r = rhs.begin();
+	for (typename multiset<T, Compare>::iterator l = lhs.begin(), r = rhs.begin();
 		l != lhs.end(); l++, r++)
 	{
 		if (*l >= *r)
@@ -546,8 +548,8 @@ bool		operator<(const set<T, Compare> &lhs,
 }
 
 template <class T, class Compare>
-bool		operator>(const set<T, Compare> &lhs,
-			const set<T, Compare> &rhs)
+bool		operator>(const multiset<T, Compare> &lhs,
+			const multiset<T, Compare> &rhs)
 {
 	if (lhs == rhs)
 		return (false);
@@ -555,8 +557,8 @@ bool		operator>(const set<T, Compare> &lhs,
 }
 
 template <class T, class Compare>
-bool		operator<=(const set<T, Compare> &lhs,
-			const set<T, Compare> &rhs)
+bool		operator<=(const multiset<T, Compare> &lhs,
+			const multiset<T, Compare> &rhs)
 {
 	if (lhs == rhs)
 		return (true);
@@ -564,8 +566,8 @@ bool		operator<=(const set<T, Compare> &lhs,
 }
 
 template <class T, class Compare>
-bool		operator>=(const set<T, Compare> &lhs,
-			const set<T, Compare> &rhs)
+bool		operator>=(const multiset<T, Compare> &lhs,
+			const multiset<T, Compare> &rhs)
 {
 	if (lhs == rhs)
 		return (true);
@@ -573,7 +575,7 @@ bool		operator>=(const set<T, Compare> &lhs,
 }
 
 template <class T, class Compare>
-void		swap(set<T, Compare> &x, set<T, Compare> &y)
+void		swap(multiset<T, Compare> &x, multiset<T, Compare> &y)
 {
 	x.swap(y);
 }
