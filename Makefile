@@ -6,7 +6,7 @@
 #    By: lucas <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/18 15:54:28 by lucas             #+#    #+#              #
-#    Updated: 2021/02/25 19:54:42 by lucas            ###   ########.fr        #
+#    Updated: 2021/02/26 12:22:36 by lucas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,6 +89,15 @@ set:
 				$(CC) $(FLAGS) $(FT) $(FT_PAIR) srcs/Set/test/main_set.cpp -o set
 				./set > result_ft
 				rm  set
+				diff -s result_ft result_std > result_diff
+
+multiset:
+				$(CC) $(FLAGS) $(STD) $(STD_PAIR) srcs/Multiset/test/main_multiset.cpp -o multiset
+				./multiset > result_std
+				rm  multiset
+				$(CC) $(FLAGS) $(FT) $(FT_PAIR) srcs/Multiset/test/main_multiset.cpp -o multiset
+				./multiset > result_ft
+				rm  multiset
 				diff -s result_ft result_std > result_diff
 
 clean:
