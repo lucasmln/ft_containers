@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 12:15:46 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/26 12:46:15 by lucas            ###   ########.fr       */
+/*   Updated: 2021/03/01 10:44:03 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,8 +253,8 @@ int main(int argc, const char *argv[])
 	for (MODE::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
 		std::cout << *i << "\t";
 	std::cout << "\nPop front 2 times\n";
-	lst.pop_front();
-	lst.pop_front();
+//	lst.pop_front();
+//	lst.pop_front();
 	for (MODE::list<int>::iterator i = lst.begin(); i != lst.end(); i++)
 		std::cout << *i << "\t";
 
