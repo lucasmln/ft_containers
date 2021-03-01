@@ -155,16 +155,21 @@ int main(int argc, const char *argv[])
 	std::cout << std::endl;
 
 	std::cout << "\nCreate list with iterator\n";
-	MODE::list<int>	with_it(start, end);
+	MODE::list<int>		with_it(start, end);
 	for (MODE::list<int>::iterator it = with_it.begin(); it != with_it.end(); it++)
 		std::cout << *it << " ";
 	std::cout << std::endl;
 
 	std::cout << "\nCreate list with copy of lst\n";
-	MODE::list<int>	copy(lst);
+	MODE::list<int>		copy(lst);
 	for (MODE::list<int>::iterator it = copy.begin(); it != copy.end(); it++)
 		std::cout << *it << " ";
 	std::cout << std::endl;
+
+	std::cout << "lst size = " << lst.size() << std::endl;
+	std::cout << "test size = " << test.size() << std::endl;
+	std::cout << "copy size = " << copy.size() << std::endl;
+	std::cout << "with_it size = " << with_it.size() << std::endl;
 }
 
 {
@@ -265,6 +270,7 @@ int main(int argc, const char *argv[])
 		std::cout << *i << "\t";
 }
 
+
 {
 	std::cout << "\n\nTest with remove\n";
 
@@ -308,9 +314,19 @@ int main(int argc, const char *argv[])
 	lst.push_back(39);
 	lst.push_back(4);
 	lst.push_back(1);
+
 	lst.remove_if (single_digit);           // 15 36 17 20 39
 
+	std::cout << "mylist contains after remove_if(single_digit) :";
+	for (MODE::list<int>::iterator it = lst.begin(); it != lst.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
+
 	lst.remove_if (is_odd());               // 36 20
+	std::cout << "mylist contains after remove_if(is_odd) :";
+	for (MODE::list<int>::iterator it = lst.begin(); it != lst.end(); ++it)
+		std::cout << ' ' << *it;
+	std::cout << '\n';
 
 //	lst.remove_if (is_even());               // emptu
 
@@ -576,7 +592,9 @@ int main(int argc, const char *argv[])
 	std::cout << std::endl;
 
 	lst.sort();
+	std::cout << "before sort\n";
 	lst.unique(same_integral_part);
+	std::cout << "after sort\n";
 
 	std::cout <<  "List value after unique(same_integral_part): ";
 	for (MODE::list<double>::iterator it = lst.begin(); it !=lst.end(); it++)

@@ -98,7 +98,11 @@ namespace ft
 			{
 				_alloc = alloc;
 				init();
-				_head->_elem = *first++;
+				_tail = _head;
+				_size = 0;
+				if (first == last)
+					return ;
+				_head->_elem = *first;
 				while (first != last)
 				{
 					push_back(*first);
@@ -112,7 +116,7 @@ namespace ft
 				_tail = _head;
 				if (x.size() > 0)
 					_head->_elem = x._head->_elem;
-				for (iterator it = x.begin(); x.size() > 0 && it != x.end(); it++)
+				for (iterator it = x.begin(); it != x.end(); it++)
 					push_back(*it);
 			}
 
@@ -170,11 +174,7 @@ namespace ft
 
 			void				clear()
 			{
-				size_type	n = _size;
-
-				while (n-- > 0)
-					pop_back();
-				_size = 0;
+				erase(begin(), end());
 			}
 
 			bool				empty() const
@@ -384,7 +384,7 @@ namespace ft
 				_size++;
 			}
 
-			reverse_iterator		rbegin()
+			reverse_iterator			rbegin()
 			{
 				return (reverse_iterator(_tail));
 			}
@@ -413,15 +413,17 @@ namespace ft
 			template <class Predicate>
 			void					remove_if(Predicate pred)
 			{
-				size_type	n = _size;
 				iterator	it = begin();
 
-				while (n > 0)
+				while (it != end())
 				{
 					if (pred(*it))
+					{
 						erase(it);
-					it++;
-					n--;
+						it = begin();
+					}
+					else
+						it++;
 				}
 			}
 
@@ -558,7 +560,8 @@ namespace ft
 
 			void					unique()
 			{
-				iterator		test;
+				iterator		test = begin();
+				iterator		tmp;
 
 				for (iterator it = begin(); it != end(); it++)
 				{
@@ -567,7 +570,12 @@ namespace ft
 					while (test != end())
 					{
 						if (*test == *it)
+						{
+							tmp = test;
+							tmp++;
 							erase(test);
+							test = it;
+						}
 						test++;
 					}
 				}
@@ -576,7 +584,8 @@ namespace ft
 			template <class BinaryPredicate>
 			void					unique(BinaryPredicate binary_pred)
 			{
-				iterator		test;
+				iterator		test = begin();
+				iterator		tmp;
 
 				for (iterator it = begin(); it != end(); it++)
 				{
@@ -585,7 +594,12 @@ namespace ft
 					while (test != end())
 					{
 						if (binary_pred(*it, *test))
+						{
+							tmp = test;
+							tmp++;
 							erase(test);
+							test = it;
+						}
 						test++;
 					}
 				}
