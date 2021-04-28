@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 10:40:56 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/26 12:41:09 by lucas            ###   ########.fr       */
+/*   Updated: 2021/04/28 18:53:35 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,7 +260,10 @@ namespace ft
 				add->_before->_next = add;
 				f->_before = add;
 				if (f == _head)
+				{
 					_head = add;
+					_tail->_next = _head;
+				}
 				_size++;
 				return (position);
 			}
@@ -269,7 +272,10 @@ namespace ft
 														const value_type& val)
 			{
 				for (size_type i = 0; i < n; i++)
+				{
+					std::cout << "here\n";
 					insert(position, val);
+					}
 			}
 
 			template <class InputIt>
