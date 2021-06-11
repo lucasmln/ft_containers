@@ -6,7 +6,7 @@
 /*   By: lucas <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 14:47:36 by lucas             #+#    #+#             */
-/*   Updated: 2021/02/25 19:44:40 by lucas            ###   ########.fr       */
+/*   Updated: 2021/06/11 14:07:45 by lucas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,17 @@ namespace ft
 				while (_ptr->left)
 					_ptr = _ptr->left;
 			}
-			else if (_ptr->parent)
+			else
+			{
+				node	*tmp = _ptr;
 				_ptr = _ptr->parent;
-			return (it);
+				while (_ptr->parent && tmp == _ptr->right)
+				{
+					tmp = _ptr;
+					_ptr = _ptr->parent;
+				}
+			}
+			return (*this);
 		}
 
 		_self		operator++()
@@ -99,8 +107,16 @@ namespace ft
 				while (_ptr->right)
 					_ptr = _ptr->right;
 			}
-			else if (_ptr->parent)
+			else
+			{
+				node	*tmp = _ptr;
 				_ptr = _ptr->parent;
+				while (_ptr->parent && tmp == _ptr->left)
+				{
+					tmp = _ptr;
+					_ptr = _ptr->parent;
+				}
+			}
 			return (*this);
 		}
 
@@ -114,9 +130,17 @@ namespace ft
 				while (_ptr->right)
 					_ptr = _ptr->right;
 			}
-			else if (_ptr->parent && _ptr->parent->right == _ptr)
+			else
+			{
+				node	*tmp = _ptr;
 				_ptr = _ptr->parent;
-			return (it);
+				while (_ptr->parent && tmp == _ptr->left)
+				{
+					tmp = _ptr;
+					_ptr = _ptr->parent;
+				}
+			}
+			return (*this);
 		}
 
 		// BOOLEANS
